@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Resultat des recherche
+{% endblock %}
+
+
+{% block content %}
+
+	<div class="container-fluid p-2 ">
+
+		<div class="row d-md-flex justify-content-between d-sm-block m-auto">
+			<div class="shadow p-3 mb-5 bg-white rounded mr-2 col-md-3 col-sm-12" >
+				<div class="bg-dark px-2 rounded">
+					<h1 class="text-white text-center ">Recherche</h1>
+				</div>
+
+				{{ form_start(form) }}
+				{{ form_row(form.q) }}
+				{{ form_row(form.categories) }}
+				{{ form_row(form.fabricants) }}
+				<div class="d-flex justify-content-between mt-3 gy-2">
+					{{ form_row(form.min) }}
+					{{ form_row(form.max) }}
+				</div>
+				{{ form_row(form.order) }}
+
+				<button type="submit" class="btn btn-primary w-100 ">Valider</button>
+				{{ form_end(form) }}
+			</div>
+			<div class="shadow p-3 mb-5 bg-white rounded col-md-8 col-sm-12" >
+				<h4>{{products | length }}
+					résultats ont été trouvés.
+				</h4>
+
+				<div class="mt-3">
+
+					<div class="row g-2">
+						{% for product in products %}
+							<div class="card_product">
+								{% if product.image %}
+
+									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
+								{% else %}
+									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
+
+								{% endif %}
+								<h3>{{product.libelle}}
+								</h3>
+								<h6>{{product.prix | number_format(2, '€') }}</h6>
+
+								<button class="add_card">
+									<a href="{{path('app_show', {id : product.id})}}">
+										<i class="bi bi-eye" style="color: grey"></i>
+									</a>
+									<a href="#">
+										<i class="bi bi-heart" style="color : white"></i>
+									</a>
+									<a href="#">
+										<i class="bi bi-cart-plus" style="color: black"></i>
+									</a>
+								</button>
+							</div>
+
+
+						{% endfor %}
+
+
+					</div>
+
+
+				</div>
+
+			</div>
+
+		</div>
+
+
+	</div>
+
+
+{% endblock %}

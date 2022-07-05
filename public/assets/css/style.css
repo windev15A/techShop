@@ -1,0 +1,331 @@
+body {
+  background: rgba(255, 253, 253, 0.2) !important;
+}
+
+nav input[type="checkbox"] {
+  display: none;
+}
+nav label {
+  display: none;
+  font-size: 22px;
+  font-weight: 500;
+}
+.carrossel {
+  margin-top: 10px;
+}
+.carrossel .carousel-item {
+  min-height: 60vh;
+  background-position: center;
+  background-size: cover;
+  position: relative;
+  z-index: 1;
+}
+
+.carrossel .carousel-item::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.carrossel .carousel-item .container {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.carrossel .carousel-item h2 {
+  font-size: 80px;
+  color: #fff;
+  margin: 0 0 10px;
+  opacity: 0;
+}
+.carrossel .carousel-item p {
+  font-size: 30px;
+  margin: 0;
+  color: #eee;
+  opacity: 0;
+}
+
+.carrossel .carousel-item .btn_shop {
+  background-color: red;
+  font-size: 24px;
+  color: #fff;
+  margin-top: 25px;
+  width: 150px;
+  border-color: transparent;
+}
+
+.carrossel .carousel-item.active h2 {
+  animation: fadeInLeft 0.5s ease forwards;
+}
+.carrossel .carousel-item.active p {
+  animation: fadeInRight 0.5s ease forwards;
+}
+.carrossel .carousel-item.active a {
+  animation: fadeInLeft 0.5s ease forwards;
+}
+
+@keyframes fadeInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+@keyframes fadeInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+}
+
+.carrossel .carousel-controls {
+  position: absolute;
+  left: 50%;
+  bottom: 40px;
+  z-index: 10;
+  transform: translateX(-50%);
+}
+
+.carrossel .carousel-indicators {
+  position: relative;
+  margin: 0;
+}
+
+.carrossel .carousel-indicators li {
+  height: 70px;
+  width: 70px;
+  margin: 0 5px;
+  border-radius: 50%;
+  background-position: right;
+  background-size: cover;
+  border: 3px solid transparent;
+  transition: all 0.3s linear;
+}
+
+.carrossel .carousel-indicators li.active {
+  border-color: #fff;
+  transform: scale(1.2);
+}
+
+
+.produits{
+    margin-top: 40px;
+}
+.produits ul li {
+    width: 33%;
+
+}
+.produits ul li a{
+    border-right: 1px solid gray;
+    font-weight: 400;
+    color: rgb(73, 60, 60) !important;
+
+}
+
+.produits ul li a.active {
+    font-size: 22px;
+    font-weight: 600;
+    color: black !important;
+
+}
+
+.card_product h3{
+  text-align: center;
+  font-size: 30px;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.product_list{
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 50px 0;
+}
+.card_product{
+  width: 20%;
+  margin: 15px;
+  box-sizing: border-box;
+  float: left;
+  text-align: center;
+  border-radius: 20px;
+  cursor: pointer;
+  padding-top: 10px;
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transition: 0.4s;
+  background: #f2f2f2;
+}
+.card_product:hover{
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  transform: translate(0px, -8px);
+}
+.card_product img{
+  width: 100%;
+  text-align: center;
+  margin: 0 auto;
+  display: block;
+}
+.card_product p{
+  text-align: center;
+  color: #b2bec3;
+  padding-top: 0 8px;
+}
+.card_product h6{
+  font-size: 26px;
+  text-align: center;
+  color: #222f3e;
+  margin: 0;
+}
+.card_product ul{
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 0;
+}
+.card_product ul li{
+  padding-top: 5px;
+}
+.bi{
+  font-size: 26px;
+  transition: 0.4s;
+}
+.bi-star-fill{
+  color: #ff9f43;
+}
+.bi:hover{
+  transform: scale(1.3);
+  transition: 0.6s;
+}
+
+.card_product button{
+  text-align: center;
+  font-size: 24px;
+  color: #fff;
+  width: 100%;
+  padding: 15px;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+  margin-top: 5px;
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+
+}
+.add_card{
+  background: rgb(178, 194, 38);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add_card .bi{
+  font-size: 30px;
+}
+
+
+.btn-qty{
+  background-color: #a2a0a0;
+  height: 35px;
+  width: 35px;
+  text-align: center;
+  color: black;
+  border-radius: 50px;
+  margin-left: 10px;
+  margin-right: 10px;
+  font-size: 22px;
+}
+
+.myMenu :hover{
+
+  background: #d3d3d2;
+  font-size: 22px;
+
+}
+
+
+/* Responsive  */
+
+@media screen and (max-width: 1200px) {
+
+
+  .card_product{
+    width: 30%;
+  } 
+
+
+}
+
+@media screen and (max-width: 991px) {
+  .panier {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 10px;
+  }
+
+  .panier a{
+    margin-right: 10px !important;
+  }
+
+  .card_product{
+    width: 42%;
+  } 
+
+
+}
+
+
+@media screen and (max-width: 620px) {
+  nav input[type="checkbox"]:checked ~ ul {
+    display: block !important;
+  }
+  .menu-mobile {
+    display: block !important;
+    color: #fff;
+    background-color: rgba(117, 247, 11, 0.6);
+    text-align: center;
+    padding: 12px 0px;
+  }
+  nav ul {
+    display: none !important;
+  }
+  nav ul li,
+  nav ul li a {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .carrossel .carousel-indicators li {
+    height: 60px;
+    width: 60px;
+  }
+  .carrossel .carousel-item h2 {
+    font-size: 45px;
+  }
+  .carrossel .carousel-item p {
+    font-size: 45%;
+  }
+
+  .card_product{
+    width: 100%
+  } 
+}
+

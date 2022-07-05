@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}{% endblock %}
+		</title>
+		<!-- Feuille de style-->
+		<link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> {% block stylesheets %}{% endblock %}
+
+		</head>
+		<body>
+
+			
+
+			{% include "partials/nav.html.twig" %}
+
+			<div class="main">
+				{% include "partials/barhaut.html.twig" %}
+				{% block content %}
+				{% for message in app.flashes('success') %}
+
+				<div class="alert alert-success col-8 mx-auto text-center my-4 d-none" id="alertMessage">
+					{{message}}
+				</div>
+				
+
+			{% endfor %}
+				
+				{% endblock %}
+			</div>
+
+			<script src="{{asset('assets/js/app.js')}}"></script>
+			{% block javascripts %}{% endblock %}
+		</body>
+	</html>

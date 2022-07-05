@@ -1,0 +1,82 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Connexion || Inscription
+{% endblock %}
+
+{% block content%}
+
+	<div class="container">
+
+		<h1>Idintifiez-vous</h1>
+		<hr>
+
+		<div class="row">
+			<div class="col-md-6 col-sm-12 mb-3">
+
+				<div class="border p-3">
+					<h3>CRÉEZ VOTRE COMPTE</h3>
+					<hr>
+					<form method="post" action="{{path('app_register')}}">
+					<input type="hidden" name="token" value="{{ csrf_token('register_token') }}">
+						<div class="form-group">
+							<label for="name">Nom</label>
+							<input type="text" name="name" id="name" class="form-control" placeholder="Saisir votre nom" aria-describedby="helpId">
+							<small id="helpId" class="text-muted">Help text</small>
+						</div>
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="text" name="email" id="email" class="form-control" placeholder="Saisir votre Email" aria-describedby="helpId">
+							<small id="helpId" class="text-muted">Help text</small>
+						</div>
+						<div class="form-group">
+							<label for="password">Mot de passe</label>
+							<input type="password" name="password" id="password" class="form-control" placeholder="Saisir votre nom" aria-describedby="helpId">
+							<small id="helpId" class="text-muted">Help text</small>
+						</div>
+						<div class="form-group">
+							<label for="confirm_password">Confirmer mot de passe</label>
+							<input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Saisir votre nom" aria-describedby="helpId">
+							<small id="helpId" class="text-muted">Help text</small>
+						</div>
+
+						<div class="col-md-12 text-center">
+							<button type="submit" class="btn btn-dark w-50 mt-3">Créez votre compte</button>
+						</div>
+					</form>
+				</div>
+			</div>
+			<div class="col">
+				<div class="border p-3">
+					<h3>DÉJÀ INSCRIT?</h3>
+					<hr>
+					<form method="post" action="{{path('app_login')}}">
+					<input type="hidden" name="token" value="{{ csrf_token('login_token') }}">
+
+						<div class="form-group">
+							<label for="email">Email</label>
+							<input type="text" name="email" id="email" class="form-control" placeholder="Saisir votre Email" aria-describedby="helpId">
+							<small id="helpId" class="text-muted">Help text</small>
+						</div>
+						<div class="form-group">
+							<label for="password">Mot de passe</label>
+							<input type="password" name="password" id="password" class="form-control" placeholder="Saisir votre mot de passe" aria-describedby="helpId">
+							<small id="helpId" class="text-muted">Help text</small>
+						</div>
+
+						<div class="col-md-12 text-center">
+							<button type="submit" class="btn btn-dark w-50 mt-3">Connexion</button>
+						</div>
+					</form>
+
+				</div>
+
+			</div>
+
+
+		</div>
+
+
+	</div>
+
+{% endblock %}

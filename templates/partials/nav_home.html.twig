@@ -1,0 +1,75 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark py-2">
+	<div class="container-fluid">
+		<a href="{{path('app_main')}}" class="navbar-brand" style="color: #a7bb60 !important;">TECH SHOP</a>
+		<button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+			<div class="navbar-nav">
+				<a href="{{path('app_main')}}" class="nav-item nav-link active">Accueil</a>
+				<a href="#" class="nav-item nav-link">Blog</a>
+				<a href="{{path('app_contact')}}" class="nav-item nav-link">Contact</a>
+				<div class="nav-item dropdown">
+					<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Nos produits</a>
+					<div class="dropdown-menu">
+						<a href="{{path('app_search')}}" class="dropdown-item">Par catégorie</a>
+						<a href="{{path('app_search')}}" class="dropdown-item">Par Fabriquant</a>
+						<a href="{{path('app_search')}}" class="dropdown-item"></a>
+					</div>
+				</div>
+			</div>
+			<form class="d-flex">
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Search">
+					<a href="{{path('app_search')}}" class="btn btn-secondary">
+						<i class="bi-search"></i>
+					</a>
+				</div>
+			</form>
+			<div class="navbar-nav align-items-center panier">
+				<a href="#" class="nav-item nav-link position-relative mx-2">
+					<i class="bi bi-heart" style="font-size: 1.5rem; color: cornflowerblue;"></i>
+					<span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+						{{app.session.get('wishlist') | length}}
+
+					</span>
+				</a>
+				<a href="{{path('app_cart')}}" class="nav-item nav-link position-relative mx-2">
+					<i class="bi bi-bag-fill" style="font-size: 1.5rem; color: cornflowerblue;"></i>
+					<span class="position-absolute top-1 start-100 translate-middle badge rounded-pill bg-danger">
+						{{app.session.get('panier') | length}}
+
+					</span>
+				</a>
+				{% if app.user %}
+
+					<div class="nav-item dropdown mx-5 bg-primary px-2 rounded">
+						<a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+							{{app.user.nom}}
+							{{app.user.prenom}}
+						</a>
+						<div class="dropdown-menu">
+							{% if is_granted('ROLE_ADMIN') %}
+								<a href="{{path('app_dashboard')}}" class="dropdown-item">Tableau de bord</a>
+							{% endif %}
+							<a href="{{path('app_profil')}}" class="dropdown-item">Profil</a>
+							<a href="{{path('app_logout')}}" class="dropdown-item">Déconnexion</a>
+						</div>
+					</div>
+
+				{% else %}
+					<a href="{{path('app_login')}}" class="nav-item nav-link mx-2">Connexion</a>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</nav>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+
+	$('.dropdown-toggle').mouseover(function () {
+
+$(this).dropdown('toggle')
+})
+</script>

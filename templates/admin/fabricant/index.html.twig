@@ -1,0 +1,101 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des fabricants
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="head_main">
+		<h1>Liste des fabricants</h1>
+		{% for message in app.flashes('success') %}
+
+
+		<div class="dialogue_flash" id="alertMessage">
+			{{message}}
+		</div>
+		
+
+	{% endfor %}
+
+	</div>
+
+	<div class="details">
+		<div class="recentOrders">
+
+			<div class="cardHeader">
+				<h2>Fabricants</h2>
+				<a href="{{path('app_new_fabricant')}}" class="btn">Nouveau</a>
+			</div>
+			{% if fabricants is empty %}
+				<div class="data_empty">
+					<h3>Pas de données à afficher
+					</h3>
+				</div>
+			{% else %}
+				<table>
+					<thead>
+						<tr>
+							<td>#ID</td>
+							<td>Nom</td>
+							<td>Image</td>
+							<td>Date création</td>
+							<td>Actions</td>
+
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for fabricant in fabricants %}
+
+							<tr>
+								<td>{{fabricant.id}}</td>
+								<td>{{fabricant.nom}}</td>
+								<td>
+									<img src="{{asset("assets/images/fabricants/" ~ fabricant.image)}}" alt="{{fabricant.nom}}" width="120px">
+								</td>
+								<td>{{fabricant.createdAt | date("d/m/Y", "Europe/Paris") }}</td>
+								<td style="display: table-cell;">
+									<div style="display: flex;justify-content: space-around;">
+										<a href="{{path('app_update_fabricant', {'id': fabricant.id})}}" class="btn btn_edit">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</a>
+										<a href="{{path('app_delete_fabricant', {'id': fabricant.id})}}" class="btn btn_delete">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+										</a>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+
+					</tbody>
+				</table>
+				{{ knp_pagination_render(fabricants) }}
+			{% endif %}
+		</div>
+		<div class="recentCustomers">
+			<div class="cardHeader">
+				<h2>Nombre de produits par fabricant</h2>
+			</div>
+			<table>
+				<tbody>
+				{% for fabricant in fabricants %}
+					
+					<tr>
+						<td width="60px">
+							<div class="imgBx">
+								<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+							</div>
+						</td>
+						<td>
+							<h4>{{fabricant.nom}}<br/><span>Total produits : {{fabricant.products | length}}</span>
+							</h4>
+						</td>
+					</tr>
+				{% endfor %}
+					
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

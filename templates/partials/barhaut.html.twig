@@ -1,0 +1,18 @@
+<div class="topbar">
+	<div class="toggle" onclick="togglemenu()"></div>
+	<div class="search">
+		<label>
+			<input type="text" placeholder="Search here"/>
+			<i class="fa fa-search" aria-hidden="true"></i>
+		</label>
+	</div>
+	{% if app.user %}
+	<h3>
+		{{app.user.nom }}
+		{{app.user.prenom }} 
+	</h3>
+	{% endif %}
+	<div class="user">
+		<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+	</div>
+</div>

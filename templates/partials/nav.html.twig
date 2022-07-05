@@ -1,0 +1,83 @@
+{%set urlName = app.request.pathinfo %}
+
+<div class="container">
+	<div class="navigation">
+		<ul>
+			<li>
+				<a href="{{path('app_dashboard')}}">
+					<span class="icon">
+						<i class="fa fa-apple"></i>
+					</span>
+					<span class="title">
+						<h2>TECH SHOP</h2>
+					</span>
+				</a>
+			</li>
+			<li class="{{urlName == '/admin/' ? "selected_nav" : ""}}">
+				<a href="{{path('app_dashboard')}}">
+					<span class="icon">
+						<i class="fa fa-home" aria-hidden="true"></i>
+					</span>
+					<span class="title ">Dashboard</span>
+				</a>
+			</li>
+			<li class="{{'users' in urlName ? "selected_nav" : ""}}">
+				<a href="{{path('app_users')}}">
+					<span class="icon">
+						<i class="fa fa-users" aria-hidden="true"></i>
+					</span>
+					<span class="title ">Utilisateurs</span>
+				</a>
+			</li>
+			<li class="{{'product' in urlName ? "selected_nav" : ""}}">
+				<a href="{{path('app_products')}}">
+					<span class="icon">
+						<i class="fa fa-barcode" aria-hidden="true"></i>
+
+					</span>
+					<span class="title">Produits</span>
+				</a>
+			</li>
+			<li class="{{'categories' in urlName ? "selected_nav" : ""}}">
+				<a href="{{path('app_categories')}}">
+					<span class="icon">
+						<i class="fa fa-tags" aria-hidden="true"></i>
+					</span>
+					<span class="title">Catégories</span>
+				</a>
+			</li>
+			<li class="{{'promos' in urlName ? "selected_nav" : ""}}">
+				<a href="{{path('app_promos')}}">
+					<span class="icon">
+						<i class="fa fa-percent" aria-hidden="true"></i>
+					</span>
+					<span class="title">Promos</span>
+				</a>
+			</li>
+			<li class="{{'fabricants' in urlName ? "selected_nav" : ""}}">
+				<a href="{{path('app_fabricants')}}">
+					<span class="icon">
+						<i class="fa fa-industry" aria-hidden="true"></i>
+					</span>
+					<span class="title">Fabricants</span>
+				</a>
+			</li>
+			<li class="{{'parametres' in urlName ? "selected_nav" : ""}}">
+				<a href="#">
+					<span class="icon">
+						<i class="fa fa-cogs" aria-hidden="true"></i>
+					</span>
+					<span class="title">Paramétres</span>
+				</a>
+			</li>
+			<li>
+				<a href="{{path('app_logout')}}">
+					<span class="icon">
+						<i class="fa fa-sign-out" aria-hidden="true"></i>
+					</span>
+					<span class="title">Déconnexion</span>
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -1,0 +1,99 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des produits
+{% endblock %}
+
+{% block content %}
+
+	<div class="head_main">
+		<h1>Listes des produits</h1>
+		{% for message in app.flashes('success') %}
+			<div class="dialogue_flash" id="alertMessage">
+				{{message}}
+			</div>
+		{% endfor %}
+	</div>
+
+	<div class="details">
+		<div class="recentOrders">
+
+			<div class="cardHeader">
+				<h2>Nos produits</h2>
+				<a href="{{path('app_new_product')}}" class="btn">Nouveau</a>
+			</div>
+			{% if products is empty %}
+				<div class="data_empty">
+					<h3>Pas de données à afficher
+					</h3>
+				</div>
+			{% else %}
+				<table>
+					<thead>
+						<tr>
+							<td>#ID</td>
+							<td>Image</td>
+							<td>Libellé</td>
+							<td>Prix</td>
+							<td>Catégorie</td>
+							<td>Fabricant</td>
+							<td>Actions</td>
+
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for product in products %}
+
+							<tr>
+								<td>{{product.id}}</td>
+								<td>
+									<img src="{{asset("assets/images/produits/" ~ product.image)}}" alt="{{product.libelle}}" width="120px">
+								</td>
+								<td>{{product.libelle}}</td>
+								<td>{{product.prix | number_format(2)}}
+									€</td>
+								<td>{{product.category.libelle}}</td>
+
+								<td>{{product.fabricant.nom}}</td>
+								<td style="display: table-cell;">
+									<div style="display: flex;justify-content: space-around;">
+										<a href="{{path('app_update_product', {'id': product.id})}}" class="btn btn_edit">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</a>
+										<a href="{{path('app_delete_product', {'id': product.id})}}" class="btn btn_delete">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+										</a>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+
+					</tbody>
+				</table>
+				{{ knp_pagination_render(products) }}
+			{% endif %}
+		</div>
+		<div class="recentCustomers">
+			<div class="cardHeader">
+				<h2>Nouveaux produits
+				</h2>
+			</div>
+			<table>
+				<tbody>
+					{% for product in products | slice(0, 10) %}
+						<tr>
+							<td width="60px">
+								<div class="imgBx">
+									<img src="{{asset("assets/images/produits/" ~ product.image)}}" alt="{{product.libelle}}" width="120px">
+								</div>
+							</td>
+							<td>
+								<h4>{{product.libelle}}</h4>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}

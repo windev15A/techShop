@@ -1,0 +1,42 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Editer une promotion
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('assets/css/style_form.css')}}">
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="head_main">
+		<h1>Editer une promotion</h1>
+	</div>
+
+	<div class="details">
+		<div class="recentOrders">
+
+			<div class="cardHeader">
+				<h2>Modifier une promotion</h2>
+				<a href="{{path('app_categories')}}">
+					<i class="fa fa-close fa-2x" style="color:gray"></i>
+				</a>
+			</div>
+
+			<div>
+				{{form_start(form)}}
+					{{ form_row(form.codePromo)}}
+					{{ form_row(form.tauxPromo)}}
+					<div class="div_date">
+						{{form_row(form.date_debut)}}
+						{{form_row(form.date_fin)}}
+					</div>
+					<input type="submit" class="btn" value="Valider">
+				{{form_end(form)}}
+			</div>
+
+			<h2formule</h2></div>
+			<div class="recentCustomers"></div>
+		</div>
+	{% endblock %}

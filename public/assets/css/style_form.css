@@ -1,0 +1,65 @@
+input[type="text"],
+textarea,
+input[type="file"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+input[type="date"] {
+  width: 100%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+select {
+  width: 90%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  font-weight: 500;
+  font-size: 18px;
+}
+.mb-3 {
+  width: 100%;
+}
+.select_input {
+  display: flex;
+}
+
+label {
+  padding: 12px 12px 12px 0;
+  display: inline-block;
+}
+input[type="submit"] {
+  width: 25%;
+  background-color: #04aa6d;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  float: center;
+  margin-top: 30px;
+  
+}
+
+input[type="submit"]:hover {
+  background-color: #45a049;
+  font-size: 22px;
+}
+
+.search label .fa {
+  top: 23px;
+}
+
+.div_date{
+  display: flex;
+}

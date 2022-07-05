@@ -1,0 +1,46 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Modifier un produit
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('assets/css/style_form.css')}}">
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="head_main">
+		<h1>Modification</h1>
+	</div>
+
+	<div class="details">
+		<div class="recentOrders">
+
+			<div class="cardHeader">
+				<h2>Modifier un produit</h2>
+				<a href="{{path('app_products')}}">
+					<i class="fa fa-close fa-2x" style="color:gray"></i>
+				</a>
+
+			</div>
+
+			<div>
+				{{form_start(form)}}
+				{{ form_row(form.libelle)}}
+				{{form_row(form.description)}}
+				{{form_row(form.prix)}}
+				{{form_row(form.image)}}
+				<div class="select_input">
+					{{form_row(form.category)}}
+					{{form_row(form.fabricant)}}
+				</div>
+
+				<input type="submit" class="btn" value="Valider">
+				{{form_end(form)}}
+			</div>
+
+			<h2formule</h2></div>
+			<div class="recentCustomers"></div>
+		</div>
+	{% endblock %}

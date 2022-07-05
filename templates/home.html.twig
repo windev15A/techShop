@@ -1,0 +1,348 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Tech SHOP
+{% endblock %}
+
+{% block content %}
+
+	<div class="container bg-light shadow pt-2 rounded">
+		<nav class="bg-dark mt-2 rounded">
+			<label for="menu-mobile" class="menu-mobile">Catégories</label>
+			<input type="checkbox" id="menu-mobile" role="button">
+			<ul class="nav justify-content-between">
+				{% for category in categories %}
+					<li class="nav-link d-flex align-items-center">
+						<i class="bi bi-diamond-fill me-2" style="color: red"></i>
+						<h4>
+							<a href="" class="text-light text-decoration-none">{{category.libelle}}</a>
+						</h4>
+					</li>
+				{% endfor %}
+			</ul>
+		</nav>
+
+		<section class="carrossel">
+			<div id="carousel" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-controls">
+					<ol class="carousel-indicators">
+						<li data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="background-image:url(https://www.pngmart.com/files/7/Mac-PNG-Clipart.png)"></li>
+						<li data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2" style="background-image:url(https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/refurb-mac-mini-2018?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1553797551145)"></li>
+						<li data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3" style="background-image:url(https://d10mhq06fikmnr.cloudfront.net/catalog/product/h/u/hunter_rev2_main_rgb-min_6.png)"></li>
+					</ol>
+				</div>
+				<div class="carousel-inner">
+					<div class="carousel-item active" style="background-image:url(https://www.pngmart.com/files/7/Mac-PNG-Clipart.png)">
+						<div class="container">
+							<h2>MAc pro 2022</h2>
+							<p>Produit pour travailler en toute tranquilité
+							</p>
+							<p>A partir de 1500 €</p>
+							<a href="" class="btn btn_shop">Acheter</a>
+						</div>
+					</div>
+					<div class="carousel-item" style="background-image:url(https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/refurb-mac-mini-2018?wid=572&hei=572&fmt=jpeg&qlt=95&.v=1553797551145)">
+						<div class="container">
+							<h2>Mini mac 2021</h2>
+							<p>Mini produit avec des grands capacité
+							</p>
+							<p>A partir de 750 €</p>
+							<a href="" class="btn btn_shop">Acheter</a>
+						</div>
+
+					</div>
+					<div class="carousel-item" style="background-image:url(https://d10mhq06fikmnr.cloudfront.net/catalog/product/h/u/hunter_rev2_main_rgb-min_6.png)">
+						<div class="container">
+							<h2>PC GAMER 22</h2>
+							<p>Performance garantié a 100 % avec une quallité superieur
+							</p>
+							<p>A partir de 1200 €</p>
+							<a href="" class="btn btn_shop">Acheter</a>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</section>
+
+
+		<section class="produits">
+			<ul class="nav nav-tabs" id="myTab">
+				<li class="nav-item">
+					<a href="#home" class="nav-link active" data-bs-toggle="tab">Nouveautés</a>
+				</li>
+				<li class="nav-item">
+					<a href="#profile" class="nav-link" data-bs-toggle="tab">Produits phares</a>
+				</li>
+				<li class="nav-item">
+					<a href="#messages" class="nav-link" data-bs-toggle="tab">Meilleures ventes</a>
+				</li>
+			</ul>
+			<div class="tab-content p-3">
+				<div class="tab-pane fade show active" id="home">
+					<div class="product_list">
+						{% for product in products %}
+							<div class="card_product">
+								{% if product.image %}
+									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
+								{% else %}
+									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
+
+								{% endif %}
+								<h3>{{product.libelle}}
+								</h3>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...
+								</p>
+								<h6>{{product.prix | number_format(2, '€') }}</h6>
+								<ul>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+								</ul>
+								<button class="add_card">
+									<a href="{{path('app_show', {id : product.id})}}">
+										<i class="bi bi-eye" style="color: grey"></i>
+									</a>
+									<a href="{{path('wishlist_add', {id: product.id})}}">
+										{% if product.id in app.session.get('wishlist')  %}
+											<i class="bi bi-heart-fill" style="color : red"></i>
+										{% else %}
+											<i class="bi bi-heart" style="color : white"></i>
+										{% endif %}
+									</a>
+									<a href="{{path('panier_add', {id: product.id})}}">
+										<i class="bi bi-cart-plus" style="color: black"></i>
+									</a>
+								</button>
+							</div>
+						{% endfor %}
+
+
+					</div>
+				</div>
+				<div class="tab-pane fade" id="profile">
+					<div class="product_list">
+						{% for product in products %}
+							<div class="card_product">
+								{% if product.image %}
+
+									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
+								{% else %}
+									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
+
+								{% endif %}
+								<h3>{{product.libelle}}
+								</h3>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...
+								</p>
+								<h6>{{product.prix | number_format(2, '€') }}</h6>
+								<ul>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+								</ul>
+								<button class="add_card">
+									<a href="{{path('app_show', {id : product.id})}}">
+										<i class="bi bi-eye" style="color: grey"></i>
+									</a>
+									<a href="#">
+										<i class="bi bi-heart" style="color : white"></i>
+									</a>
+									<a href="{{path('panier_add', {id: product.id})}}">
+										<i class="bi bi-cart-plus" style="color: black"></i>
+									</a>
+								</button>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+				<div class="tab-pane fade" id="messages">
+					<div class="product_list">
+						{% for product in products |reverse %}
+							<div class="card_product">
+								{% if product.image %}
+
+									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
+								{% else %}
+									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
+
+								{% endif %}
+								<h3>{{product.libelle}}
+								</h3>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...
+								</p>
+								<h6>{{product.prix | number_format(2, '€') }}</h6>
+								<ul>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star"></i>
+									</li>
+									<li>
+										<i class="bi bi-star"></i>
+									</li>
+								</ul>
+								<button class="add_card">
+									<a href="{{path('app_show', {id : product.id})}}">
+										<i class="bi bi-eye" style="color: grey"></i>
+									</a>
+									<a href="#">
+										<i class="bi bi-heart" style="color : white"></i>
+									</a>
+									<a href="{{path('panier_add', {id: product.id})}}">
+										<i class="bi bi-cart-plus" style="color: black"></i>
+									</a>
+								</button>
+							</div>
+						{% endfor %}
+
+
+					</div>
+				</div>
+			</div>
+
+
+		</section>
+		<hr>
+		<section class="fabricants">
+
+			<div class="row d-flex justify-content-around">
+				<h2 class="text-center">Nos fabricants
+				</h2>
+				{% for fabricant in fabricants %}
+					<div class="col-lg-2 col-md-3 col-sm-4 m-2 ">
+						<a href="#">
+							<img src="{{asset('assets/images/fabricants/' ~ fabricant.image)}}" alt="{{fabricant.nom}}" width="200px">
+						</a>
+					</div>
+				{% endfor %}
+			</div>
+		</section>
+
+	</div>
+
+
+{% endblock %}
+{# 
+			
+			----------CARD----------------------
+			<div class="card_product">
+							<img src="https://www.pngmart.com/files/16/Laptop-Notebook-PNG-HD.png" alt="image produit" srcset="">
+							<h3>PC Laptop
+							</h3>
+							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit... </p>
+							<h6>100.00 €</h2>
+							<ul>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star"></i>
+								</li>
+
+							</ul>
+							<button class="add_card">
+								Acheter
+							</button>
+						</div>
+						<div class="card_product">
+							<img src="https://www.pngmart.com/files/16/Laptop-Notebook-PNG-HD.png" alt="image produit" srcset="">
+							<h3>PC Laptop
+							</h3>
+							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit... </p>
+							<h6>100.00 €</h2>
+							<ul>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star"></i>
+								</li>
+
+							</ul>
+							<button class="add_card">
+								Acheter
+							</button>
+						</div>
+						<div class="card_product">
+							<img src="https://www.pngmart.com/files/16/Laptop-Notebook-PNG-HD.png" alt="image produit" srcset="">
+							<h3>PC Laptop
+							</h3>
+							<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit... </p>
+							<h6>100.00 €</h2>
+							<ul>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star-fill"></i>
+								</li>
+								<li>
+									<i class="bi bi-star"></i>
+								</li>
+								<li>
+									<i class="bi bi-star"></i>
+								</li>
+								<li>
+									<i class="bi bi-star"></i>
+								</li>
+
+							</ul>
+							<button class="add_card">
+								Acheter
+							</button>
+						</div>
+
+			
+			
+			
+			 #}

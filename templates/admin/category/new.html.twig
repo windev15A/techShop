@@ -1,0 +1,40 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nouvelle catégorie
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('assets/css/style_form.css')}}">
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="head_main">
+		<h1>Création d'une nouvelle catégorie</h1>
+	</div>
+
+	<div class="details">
+		<div class="recentOrders">
+
+			<div class="cardHeader">
+				<h2>Nouvelle catégorie</h2>
+				<a href="{{path('app_categories')}}">
+					<i class="fa fa-close fa-2x" style="color:gray"></i>
+				</a>
+
+			</div>
+
+			<div>
+				{{form_start(form)}}
+					{{ form_row(form.libelle)}}
+					{{form_row(form.description)}}
+					{{form_row(form.image)}}
+					<input type="submit" class="btn" value="Valider">
+				{{form_end(form)}}
+			</div>
+
+			<h2formule</h2></div>
+			<div class="recentCustomers"></div>
+		</div>
+	{% endblock %}

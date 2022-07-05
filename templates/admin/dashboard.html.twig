@@ -1,0 +1,219 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Dashboard
+{% endblock %}
+
+{% block content %}
+
+	<div class="cardBox">
+		<div class="card">
+			<div>
+				<div class="numbers">1042</div>
+				<div class="cardName">Daily Views</div>
+			</div>
+			<div class="iconBox">
+				<i class="fa fa-eye" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="card">
+			<div>
+				<div class="numbers">80</div>
+				<div class="cardName">Sales</div>
+			</div>
+			<div class="iconBox">
+				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="card">
+			<div>
+				<div class="numbers">208</div>
+				<div class="cardName">Comments</div>
+			</div>
+			<div class="iconBox">
+				<i class="fa fa-comment" aria-hidden="true"></i>
+			</div>
+		</div>
+		<div class="card">
+			<div>
+				<div class="numbers">$6042</div>
+				<div class="cardName">Earning</div>
+			</div>
+			<div class="iconBox">
+				<i class="fa fa-usd" aria-hidden="true"></i>
+			</div>
+		</div>
+	</div>
+	<div class="details">
+		<div class="recentOrders">
+			<div class="cardHeader">
+				<h2>Recent orders</h2>
+				<a href="#" class="btn">View all</a>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<td>Name</td>
+						<td>Price</td>
+						<td>Payment</td>
+						<td>Status</td>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr>
+						<td>Star refrigerator</td>
+						<td>$1200</td>
+						<td>Paid</td>
+						<td>
+							<span class="status delivered">Delivered</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Window coolers</td>
+						<td>$120</td>
+						<td>Due</td>
+						<td>
+							<span class="status delivered">Pending</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Speakers</td>
+						<td>$650</td>
+						<td>Paid</td>
+						<td>
+							<span class="status return">Return</span>
+						</td>
+					</tr>
+					<tr>
+						<td>HP Laptop</td>
+						<td>$6000</td>
+						<td>Due</td>
+						<td>
+							<span class="status inprogress">In progress</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Star refrigerator</td>
+						<td>$1200</td>
+						<td>Paid</td>
+						<td>
+							<span class="status delivered">Delivered</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Window coolers</td>
+						<td>$120</td>
+						<td>Due</td>
+						<td>
+							<span class="status pending">Pending</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Speakers</td>
+						<td>$650</td>
+						<td>Paid</td>
+						<td>
+							<span class="status return">Return</span>
+						</td>
+					</tr>
+					<tr>
+						<td>HP Laptop</td>
+						<td>$6000</td>
+						<td>Due</td>
+						<td>
+							<span class="status inprogress">In progress</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Star refrigerator</td>
+						<td>$1200</td>
+						<td>Paid</td>
+						<td>
+							<span class="status delivered">Delivered</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Window coolers</td>
+						<td>$120</td>
+						<td>Due</td>
+						<td>
+							<span class="status pending">Pending</span>
+						</td>
+					</tr>
+					<tr>
+						<td>Speakers</td>
+						<td>$650</td>
+						<td>Paid</td>
+						<td>
+							<span class="status return">Return</span>
+						</td>
+					</tr>
+					<tr>
+						<td>HP Laptop</td>
+						<td>$6000</td>
+						<td>Due</td>
+						<td>
+							<span class="status inprogress">In progress</span>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="recentCustomers">
+			<div class="cardHeader">
+				<h2>Recent customers</h2>
+			</div>
+			<table>
+				<tbody>
+					<tr>
+						<td width="60px">
+							<div class="imgBx">
+								<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+							</div>
+						</td>
+						<td>
+							<h4>David<br/><span>Italy</span>
+							</h4>
+						</td>
+					</tr>
+					<tr>
+						<td width="60px">
+							<div class="imgBx">
+								<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+							</div>
+						</td>
+						<td>
+							<h4>Ali<br/><span>Morocco</span>
+							</h4>
+						</td>
+					</tr>
+					<tr>
+
+						<td width="60px">
+							<div class="imgBx">
+								<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+							</div>
+						</td>
+						<td>
+							<h4>Jack<br/><span>France</span>
+							</h4>
+						</td>
+					</tr>
+					<tr>
+
+						<td width="60px">
+							<div class="imgBx">
+								<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+							</div>
+						</td>
+						<td>
+							<h4>Donald<br/><span>USA</span>
+							</h4>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+{% endblock %}

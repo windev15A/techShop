@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="container">
+		<h1>Mon compte</h1>
+		<hr>
+		<p class="text-secondary my-3">
+			Bienvenue sur votre page d'accueil. Vous pouvez y gérer vos informations personnelles ainsi que vos commandes.</p>
+
+		<div class="row g-4 ">
+			<div class="col-md-6 col-sm-12 myMenu">
+				<a href="" class="link-dark  text-decoration-none d-flex align-items-center border ">
+					<i class="bi bi-person-circle px-4 border-end"></i>
+					<h4 class="px-3 text-uppercase">Mes informations personnelles</h4>
+				</a>
+			</div>
+
+			<div class="col-md-6 col-sm-12 myMenu">
+				<a href="" class="link-dark text-decoration-none  d-flex align-items-center border ">
+					<i class="bi bi-list-check px-4 border-end"></i>
+					<h4 class="px-3 text-uppercase">Historique de mes commandes</h4>
+				</a>
+			</div>
+			<div class="col-md-6 col-sm-12 myMenu">
+				<a href="" class="link-dark text-decoration-none  d-flex align-items-center border">
+					<i class="bi bi-list-check px-4 border-end"></i>
+					<h4 class="px-3 text-uppercase">Ma liste d'envie</h4>
+				</a>
+			</div>
+		</div>
+
+
+	</div>
+{% endblock %}

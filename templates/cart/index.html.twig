@@ -1,0 +1,129 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+
+		<div class="shadow p-3 mb-5 bg-body rounded">
+			<h1>Votre panier</h1>
+		</div>
+		<div class="shadow-sm p-3 bg-body rounded">
+			{% if products | length >0 %}
+
+
+				<table class="table align-middle">
+					<thead>
+						<tr>
+							<th scope="col">image</th>
+							<th scope="col">Produit</th>
+							<th scope="col">Prix</th>
+							<th scope="col">Quantité</th>
+							<th scope="col">Total</th>
+							<th scope="col">Supprimer</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for item in products %}
+							<tr>
+								<th scope="row">
+									{% if item.product.image %}
+										<img src="{{asset('assets/images/produits/' ~ item.product.image)}}" alt="" srcset="" style="width: 100px;">
+									{% else %}
+										<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" style="width: 100px;">
+
+									{% endif %}
+								</th>
+								<td>{{item.product.libelle}}</td>
+								<td>{{item.product.prix | number_format(2, '€')}}</td>
+								<td>
+									<div class="form-group">
+										<select class="form-control w-25" name="qty" id="qty" data-id="{{ item.product.id }}">
+											{% for i in 1..20 %}
+												<option value='{{i}}' {{item.qty == i ? 'selected' : ''}}>{{i}}</option>
+											{% endfor %}
+										</select>
+									</div>
+								</td>
+								<td id="st{{item.product.id}}">{{(item.product.prix * item.qty) | number_format(2, '€') }}
+								</td>
+								<td>
+									<a href="{{path('panier_delete', {id: item.product.id}) }}">
+										<i class="bi bi-trash" style="color: red"></i>
+									</a>
+								</td>
+							</tr>
+
+						{% endfor %}
+
+					</tbody>
+				</table>
+
+			</div>
+
+			<div class="row mt-5  justify-content-between shadow ">
+				<div class="col-md-4 col-sm-12">
+					<h3>Code promo</h3>
+					<div class="my-4 rounded d-flex justify-content-between">
+						<input class="form-control shadow-none" type="search" name="codePromo" id="" placeholder="Code promo">
+						<button type="submit" class="btn btn-dark ms-2 shadow-none">Appliquer</button>
+
+					</div>
+
+				</div>
+				<div class="col-md-7 col-sm-12" style="background: #CDF0EA">
+					<h3 class="text-center mb-5 mt-3">DETAIL FACTURE</h3>
+					<div class="d-flex justify-content-between my-2">
+						<h4>Total HT</h4>
+						<p>{{total | number_format(2, '€')}}</p>
+					</div>
+					<div class="d-flex justify-content-between my-2">
+						<h4>Total promo</h4>
+						<p>55</p>
+					</div>
+					<div class="d-flex justify-content-between my-2">
+						<h4>Total TVA (20%)</h4>
+						<p>500</p>
+					</div>
+					<div class="d-flex justify-content-between my-2">
+						<h4>Total TTC</h4>
+						<p>4500</p>
+					</div>
+					<div class="float-end my-3 ">
+						<a class="btn btn-dark d-flex justify-content-around shadow-none" href="#" role="button" style="width: 200px;">
+							<i class="bi bi-credit-card-2-back-fill"></i>
+							<h3>Payer</h3>
+						</a>
+					</div>
+
+				</div>
+			{% else %}
+				<div class="text-center py-3" style="background: #CDF0EA">
+					<i class="bi bi-cart4" style="font-size: 12rem;"></i>
+					<h2>Votre panier est vide...</h2>
+
+					<p>Cliquer <a href="{{path('app_main')}}">ICI</a> pour continuer vos achats </p>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+
+
+</div>{% endblock %}{% block javascript %}
+<script>
+	let qty = document.querySelectorAll('#qty');
+
+Array.from(qty).forEach((element) => {
+element.addEventListener("change", function () {
+var id = element.getAttribute('data-id')
+
+
+window.location.href = `/panier/update/${id}/${
+parseInt(this.value)
+}`
+
+})
+})
+</script>{% endblock %}

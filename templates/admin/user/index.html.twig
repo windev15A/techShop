@@ -1,0 +1,100 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}
+	Listes des utilisateurs
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="head_main">
+		<h1>Liste des utilisateurs</h1>
+	</div>
+
+
+	<div class="details">
+		<div class="recentOrders">
+			<div class="cardHeader">
+				<a href="#" class="btn">Nouveau</a>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<td>#ID</td>
+						<td>Nom</td>
+						<td>Prénom</td>
+						<td>Email</td>
+						<td>Role</td>
+						<td>Ville</td>
+						<td>Numéro portable</td>
+						<td>Actions</td>
+
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+
+						<tr>
+							<td>{{user.id}}</td>
+							<td>{{user.nom}}</td>
+							<td>{{user.prenom}}</td>
+							<td>{{user.email}}</td>
+							<td>
+								{% for role in user.roles %}
+									{% if role == 'ROLE_USER' %}
+										<span class="status delivered">
+											{{role}}
+										</span>
+
+									{% else %}
+										<span class="status inprogress">
+											{{role}}
+										</span>
+									{% endif %}
+								{% endfor %}
+							</td>
+							<td>{{user.ville}}</td>
+							<td>{{user.numeroPortable}}</td>
+							<td>
+								<a href="#" class="btn btn_edit">
+									<i class="fa fa-pencil" aria-hidden="true"></i>
+								</a>
+								<a href="#" class="btn btn_delete">
+									<i class="fa fa-trash" aria-hidden="true"></i>
+								</a>
+							</td>
+
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+			{{ knp_pagination_render(users) }}
+
+		</div>
+		<div class="recentCustomers">
+			<div class="cardHeader">
+				<h2>Utilisateurs récents</h2>
+			</div>
+			<table>
+				<tbody>
+
+					{% for user in users|slice(0, 10) %}
+						<tr>
+							<td width="60px">
+								<div class="imgBx">
+									<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+								</div>
+							</td>
+							<td>
+								<h4>{{user.nom}}<br/><span>{{user.ville}}</span>
+								</h4>
+							</td>
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</div>
+	</div>
+{% endblock %}
