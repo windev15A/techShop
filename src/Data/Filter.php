@@ -1,5 +1,7 @@
 <?php 
 
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 class Filter
 {
@@ -33,6 +35,10 @@ class Filter
      *
      * @var int
      */
+    #[Assert\LessThan(
+        propertyPath: 'max',
+        message: "Le prix minimum doit être inférieure au prix maximum"
+    )]
     public $min;  
     
     

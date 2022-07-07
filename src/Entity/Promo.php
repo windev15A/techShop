@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PromoRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: PromoRepository::class)]
 class Promo
@@ -14,18 +16,27 @@ class Promo
     private $id;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\NotBlank]
     private $codePromo;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Assert\NotBlank]
+    #[Assert\LessThan(
+        propertyPath: 'date_fin',
+        message: "Date de début doit être inférieure à la date du fin "
+    )]
     private $date_debut;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
+    #[Assert\NotBlank]
     private $date_fin;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     private $created_at;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotBlank]
+    #[Assert\Positive]
     private $tauxPromo;
 
     public function getId(): ?int

@@ -2,10 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\CategoryRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\CategoryRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,12 +17,28 @@ class Category
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private $libelle;
 
     #[ORM\Column(type: 'text', nullable: true)]
+    #[Assert\Length(
+        min: 20,
+        max: 250,
+        minMessage: 'La description doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'La description ne peut pas dépasser {{ limit }} caractères',
+    )]
     private $description;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\Image(
+        maxSize :"10M",
+        mimeTypes : [
+            "image/jpeg",
+            "image/jpg",
+            "image/png"
+        ],
+        mimeTypesMessage: "Le fichier d'image sélectionné n'est pas valide"  
+    )]
     private $image;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]

@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -14,15 +15,32 @@ class Product
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private $libelle;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Assert\Length(
+        min: 20,
+        max: 250,
+        minMessage: 'La description doit comporter au moins {{ limit }} caractères',
+        maxMessage: 'La description ne peut pas dépasser {{ limit }} caractères',
+    )]
     private $description;
 
     #[ORM\Column(type: 'float')]
+    #[Assert\Positive]
     private $prix;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Image(
+        maxSize :"10M",
+        mimeTypes : [
+            "image/jpeg",
+            "image/jpg",
+            "image/png"
+        ],
+        mimeTypesMessage: "Le fichier d'image sélectionné n'est pas valide"  
+    )]
     private $image;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]
