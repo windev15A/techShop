@@ -2,10 +2,13 @@
 
 namespace App\Entity;
 
+
 use App\Repository\FabricantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 #[ORM\Entity(repositoryClass: FabricantRepository::class)]
 class Fabricant
@@ -16,9 +19,19 @@ class Fabricant
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
     private $nom;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Image(
+        maxSize :"10M",
+        mimeTypes : [
+            "image/jpeg",
+            "image/jpg",
+            "image/png"
+        ],
+        mimeTypesMessage: "Le fichier d'image sélectionné n'est pas valide"  
+    )]
     private $image;
 
     #[ORM\OneToMany(mappedBy: 'fabricant', targetEntity: Product::class)]

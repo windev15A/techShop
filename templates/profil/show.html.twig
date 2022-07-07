@@ -1,0 +1,46 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon profil
+{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+
+		<div class="shadow-sm p-3 bg-body rounded">
+			<h3>VOS INFORMATIONS PERSONNELLES</h3>
+			<hr>
+			<h5 class="mb-5">N'hésitez pas à modifier vos informations personnelles si celles-ci ont changé.</h5>
+
+
+			{{ form_start(form) }}
+			<div class="row g-2">
+				<div class="col-6">
+					{{ form_row(form.nom) }}
+				</div>
+				<div class="col-6">
+					{{ form_row(form.prenom, { 'label': 'Prénom' }) }}
+				</div>
+			</div>
+			{{ form_row(form.email) }}
+			{{ form_row(form.adresse) }}
+			<div class="row g-2">
+				<div class="col-6">
+					{{ form_row(form.codePostal) }}
+				</div>
+				<div class="col-6">
+					{{ form_row(form.ville) }}
+				</div>
+			</div>
+			{{ form_row(form.numeroPortable) }}
+
+
+            <input type="submit" value="Enregistrer" class="btn btn-dark my-3">
+			{{ form_end(form) }}
+
+		</div>
+
+
+	</div>
+
+{% endblock %}

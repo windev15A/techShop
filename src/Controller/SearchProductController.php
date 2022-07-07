@@ -35,21 +35,7 @@ class SearchProductController extends AbstractController
         $this->repo =  $productRepository;
     }
 
-    /**
-     * 
-     * getProductByCategory()
-     * 
-     * Search() by price, nom, fabricant
-     * 
-     * 
-     * 
-     * 
-     * 
-     * 
-     */
-
-
-
+    
     /**
      * search
      *
@@ -60,7 +46,7 @@ class SearchProductController extends AbstractController
     public function search(Request $request)
     {
 
-        
+
         $filter = new Filter();
         $form = $this->createForm(SearchType::class, $filter);
         $form->handleRequest($request);

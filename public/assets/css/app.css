@@ -398,6 +398,10 @@ body {
   color: rgb(255, 255, 255);
 }
 
+.invalid-feedback{
+  color: red;
+}
+
 
 /* Responsive*/
 

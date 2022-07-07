@@ -14,20 +14,22 @@ class PromoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('codePromo', TextType::class)
-            ->add('tauxPromo', TextType::class)
+            ->add('codePromo', TextType::class,[
+                'required' => false,
+            ])
+            ->add('tauxPromo', TextType::class,[
+                'required' => false,
+            ])
             ->add('date_debut', DateType::class,[
+                'required' => false,
                  'widget' => 'single_text',
                  'html5' => true
             ] )
             ->add('date_fin', DateType::class, [
+                'required' => false,
                  'widget' => 'single_text',
 
             ])
-            ->add('date_fin', DateType::class, [
-                'widget' => 'single_text',
-
-           ])
         ;
     }
 
