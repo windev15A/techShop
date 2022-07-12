@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use DateTime;
 use App\Entity\Promo;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Validator\Constraints\Date;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @extends ServiceEntityRepository<Promo>
@@ -62,13 +64,17 @@ class PromoRepository extends ServiceEntityRepository
      */
     public function findOneBycode(string $code): ?Promo
     {
+        $today = new DateTime("now");
         try {
             return $this->createQueryBuilder('p')
                 ->andWhere('p.codePromo = :val')
                 ->setParameter('val', $code)
+                ->andWhere(':date between p.date_debut AND p.date_fin')
+                ->setParameter(':date', $today)
                 ->getQuery()
                 ->getOneOrNullResult();
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             return $th->getMessage();
         }
     }

@@ -39,8 +39,7 @@ class Product
             "image/jpg",
             "image/png"
         ],
-        mimeTypesMessage: "Le fichier d'image sélectionné n'est pas valide"  
-    )]
+        mimeTypesMessage: "Le fichier d'image sélectionné n'est pas valide" )]
     private $image;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'products')]

@@ -1,11 +1,11 @@
-<?php 
+<?php
 
 use Symfony\Component\Validator\Constraints as Assert;
 
 
 class Filter
 {
-    
+
     /**
      * q
      *
@@ -14,14 +14,14 @@ class Filter
     public $q;
 
 
-        
+
     /**
      * categories
      *
      * @var array
      */
-    public $categories = [];  
-      
+    public $categories = [];
+
     /**
      * fabricants
      *
@@ -29,19 +29,16 @@ class Filter
      */
     public $fabricants = [];
 
-    
+
     /**
      * min
      *
      * @var int
      */
-    #[Assert\LessThan(
-        propertyPath: 'max',
-        message: "Le prix minimum doit être inférieure au prix maximum"
-    )]
-    public $min;  
-    
-    
+    #[Assert\LessThan(propertyPath: 'max', message: "Le prix minimum doit être inférieure au prix maximum")]
+    public $min;
+
+
     /**
      * max
      *
@@ -49,12 +46,11 @@ class Filter
      */
     public $max;
 
-    
+
     /**
      * order
      *
      * @var mixed
      */
     public $order;
-
 }
