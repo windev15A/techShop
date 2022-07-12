@@ -21,10 +21,7 @@ class Promo
 
     #[ORM\Column(type: 'datetime', nullable: true)]
     #[Assert\NotBlank]
-    #[Assert\LessThan(
-        propertyPath: 'date_fin',
-        message: "Date de début doit être inférieure à la date du fin "
-    )]
+    #[Assert\LessThan(propertyPath: 'date_fin', message: "Date de début doit être inférieure à la date du fin")]
     private $date_debut;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
