@@ -26,7 +26,7 @@
 					<tbody>
 						{% for item in products %}
 							<tr>
-								<th scope="row">
+								<th scope="row"> 
 									{% if item.product.image %}
 										<img src="{{asset('assets/images/produits/' ~ item.product.image)}}" alt="" srcset="" style="width: 100px;">
 									{% else %}
@@ -61,17 +61,21 @@
 
 			</div>
 
-				{% set codeReduction = app.session.get('reduction') | length > 0 ? app.session.get('reduction') | keys | first : '' %}
+			{% set codeReduction = app.session.get('reduction') | length > 0 ? app.session.get('reduction') | keys | first : '' %}
 			<div class="row mt-5  justify-content-between shadow ">
 				<div class="col-md-4 col-sm-12">
 					<h3>Code promo</h3>
 					<div class="my-4 rounded d-flex justify-content-between">
-						<input class="form-control shadow-none" type="search" name="codePromo" id="inputCode" placeholder="Code promo" 
-						value="{{codeReduction}}">
-						<button class="btn btn-dark ms-2 shadow-none" id="btn_promo" >Appliquer</button>
+						<input class="form-control shadow-none" type="text" name="codePromo" id="inputCode" placeholder="Code promo" value="{{codeReduction}}">
+						{% if app.session.get('reduction') | length %}
+							<a href="{{path('panier_delete_code', {codePromo : codeReduction})}}">
+								<i class="bi bi-x-circle mx-2" style="color: red"></i>
+							</a>
+						{% endif %}
+						<button class="btn btn-dark ms-2 shadow-none" id="btn_promo">Appliquer</button>
 
 					</div>
-
+					<div class="validate "></div>
 
 				</div>
 				<div class="col-md-7 col-sm-12" style="background: #CDF0EA">
@@ -82,55 +86,59 @@
 					</div>
 					{% if app.session.get('reduction') | length %}
 						{% set reduc = app.session.get('reduction')|first / 100 %}
-					<div class="d-flex justify-content-between my-2">
-						<h4>Total promo</h4>
-						<p>
-							{{total * reduc }}
-						
-						</p>
-					</div>
+						<div class="d-flex justify-content-between my-2">
+							<h4>Total promo
+								<span>({{app.session.get('reduction') | first}}
+									%)</span>
+							</h4>
+							<p>
+								{{(total * reduc) | number_format(2, '€') }}
 
-					<div class="d-flex justify-content-between my-2">
-						<h4>Nouveau total</h4>
-						<p>
-						    {% set total2 = total - (total * reduc) %}
-							{{ total2 }}
-						
-						</p>
-					</div>
+							</p>
+						</div>
+						<hr>
+						<div class="d-flex justify-content-between my-2">
+							<h4>Nouveau total</h4>
+							<p>
+								{% set total2 = total - (total * reduc) %}
+								{{ total2 | number_format(2, '€')}}
+
+							</p>
+						</div>
 					{% endif %}
 					<div class="d-flex justify-content-between my-2">
 						<h4>Total TVA (20%)</h4>
 						<p>
-						{% if app.session.get('reduction') | length %}
-							{% set tva = total2 * 0.2 %}
-						{% else %}
-							{% set tva = total * 0.2 %}
-							
-						{% endif %}
-						
-						{{tva}}</p>
+							{% if app.session.get('reduction') | length %}
+								{% set tva = total2 * 0.2 %}
+							{% else %}
+								{% set tva = total * 0.2 %}
+
+							{% endif %}
+
+							{{tva | number_format(2, '€')}}</p>
 					</div>
+					<hr>
 					<div class="d-flex justify-content-between my-2">
 						<h4>Total TTC</h4>
 						<p>
-						
-						{% if app.session.get('reduction') | length %}
-							{% set ttc = total2 + tva %}
-						{% else %}
-							{% set ttc = total + tva %}
-						{% endif %}
-						
-						{{ttc}}
-						
-						
-						
+
+							{% if app.session.get('reduction') | length %}
+								{% set ttc = total2 + tva %}
+							{% else %}
+								{% set ttc = total + tva %}
+							{% endif %}
+
+							{{ttc | number_format(2, '€')}}
+
+
 						</p>
 					</div>
 					<div class="float-end my-3 ">
-						<a class="btn btn-dark d-flex justify-content-around shadow-none" href="#" role="button" style="width: 200px;">
+						<a class="btn btn-dark d-flex justify-content-around shadow-none" href="{{path('app_paiement')}}" role="button" style="width: 300px;">
 							<i class="bi bi-credit-card-2-back-fill"></i>
-							<h3>Payer</h3>
+							<h3>Payer
+								{{ttc | number_format(2, '€')}}</h3>
 						</a>
 					</div>
 
@@ -140,35 +148,69 @@
 					<i class="bi bi-cart4" style="font-size: 12rem;"></i>
 					<h2>Votre panier est vide...</h2>
 
-					<p>Cliquer <a href="{{path('app_main')}}">ICI</a> pour continuer vos achats </p>
+					<p>Cliquer
+						<a href="{{path('app_main')}}">ICI</a>
+						pour continuer vos achats
+					</p>
 				</div>
 			{% endif %}
 		</div>
 	</div>
 
 
-</div>
-{% endblock %}
-{% block javascript %}
-	<script>
-		let qty = document.querySelectorAll('#qty');
-		let inputCode = document.querySelector('#inputCode')
-		let btn_code = document.querySelector('#btn_promo')
+</div>{% endblock %}{% block javascript %}
+<script>
+	let qty = document.querySelectorAll('#qty');
+let inputCode = document.querySelector('#inputCode')
+let btn_code = document.querySelector('#btn_promo')
+let input_error = document.querySelector('.validate')
 
-		btn_code.addEventListener('click', function(){
-			console.log(inputCode.value)
-		})
+// Function appliquer le promo
+btn_code.addEventListener('click', function () { // requet ajax pour applique le code promo
+if (inputCode.value) {
+	input_error.innerHTML = ""
+	$.ajax({
+	url: `panier/promo/${inputCode.value}`,
+	type: "POST",
+	success: function (response) {
+	if (response.success) {
+	input_error.innerHTML = response.success
+	input_error.classList.remove("text-danger");
+	input_error.classList.add("text-success");
+	window.location.reload();
 
-		Array.from(qty).forEach((element) => {
-		element.addEventListener("change", function () {
-		var id = element.getAttribute('data-id')
+
+} else {
+	input_error.innerHTML = response.error
+	input_error.classList.remove("text-success");
+	input_error.classList.add("text-danger");
+
+}
+},
+error: function () {
+input_error.classList.remove("text-success");
+input_error.classList.add("text-danger");
+input_error.innerHTML = "Erreur serveur réessayer plus tard !"
+}
+})
+
+} else {
+inputCode.style.border = "2px outset red";
+input_error.innerHTML = "Saisire un code promo "
+}
+})
 
 
-		window.location.href = `/panier/update/${id}/${
-		parseInt(this.value)
-		}`
+// Function pour changer la quantité
+Array.from(qty).forEach((element) => {
+element.addEventListener("change", function () {
+var id = element.getAttribute('data-id')
 
-		})
-		})
-	</script>
-{% endblock %}
+
+window.location.href = `/panier/update/${id}/${
+parseInt(this.value)
+}`
+
+})
+})
+</script>{% endblock %}

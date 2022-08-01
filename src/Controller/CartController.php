@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class CartController extends AbstractController
 {
@@ -128,7 +129,7 @@ class CartController extends AbstractController
             $this->logger->error($th->getMessage());
         }
 
-        return $this->redirectToRoute('app_main');
+        return $this->redirectToRoute('app_cart');
     }
 
 
@@ -137,11 +138,13 @@ class CartController extends AbstractController
      * addCodePromo
      *
      * @param  string $codePromo
-     * @return void
+     * @return Jsonesponse
      */
     #[Route('panier/promo/{codePromo}', name: 'panier_add_code')]
-    public function addCodePromo(string $codePromo, PromoRepository $promoRepository, Request $request)
+    public function addCodePromo(string $codePromo, PromoRepository $promoRepository, Request $request): JsonResponse
     {
+
+        
         $promo = $promoRepository->findOneBycode($codePromo);
 
         $reduction = $this->session->get('reduction', []);
@@ -152,13 +155,14 @@ class CartController extends AbstractController
             }
 
             $this->session->set('reduction', $reduction);
+            return new JsonResponse(['success' => 'Code promo appliquer '], 200);
+
         } else {
-            dd('non disponible');
+            return new JsonResponse(['error' => 'Code promo non valide ']);
+            
         }
         
-        $route =  $request->headers->get('referer');
-        // Une redirection vers la route 
-        return  $this->redirect($route);
+        
     }
 
     /**
@@ -167,9 +171,18 @@ class CartController extends AbstractController
      * @param  string $codePromo
      * @return void
      */
-    #[Route('koko', name: 'panier_delete_code)')]
-    public function DeleteCodePromo(string $codePromo)
+    #[Route('panier/promo/delete/{codePromo}', name: 'panier_delete_code')]
+    public function DeleteCodePromo(string $codePromo, Request $request)
     {
-        dd('lllll');
+        $promo = $this->session->get('reduction', []);
+
+        if (!empty($promo)) {
+            unset($promo[$codePromo]);
+        }
+
+        $this->session->set('reduction', $promo);
+        $route =  $request->headers->get('referer');
+        // Une redirection vers la route 
+        return  $this->redirect($route);
     }
 }

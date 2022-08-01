@@ -44,7 +44,7 @@ class WishlistController extends AbstractController
     #[Route('/wishlist', name: 'app_wishlist')]    
     public function index(Wishlist $wishlist): Response
     {
-        return $this->render('cart/index.html.twig',[
+        return $this->render('cart/wishlist.html.twig',[
             'products' => $wishlist->getFullWishlist(),
         ]);
     }

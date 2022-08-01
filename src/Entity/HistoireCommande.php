@@ -13,8 +13,6 @@ class HistoireCommande
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'json')]
-    private $produit = [];
 
     #[ORM\Column(type: 'date', nullable: true)]
     private $date_creation;
@@ -26,21 +24,12 @@ class HistoireCommande
     #[ORM\JoinColumn(nullable: false)]
     private $user;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $produits;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getProduit(): ?array
-    {
-        return $this->produit;
-    }
-
-    public function setProduit(array $produit): self
-    {
-        $this->produit = $produit;
-
-        return $this;
     }
 
     public function getDateCreation(): ?\DateTimeInterface
@@ -75,6 +64,18 @@ class HistoireCommande
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    public function getProduits(): ?string
+    {
+        return $this->produits;
+    }
+
+    public function setProduits(?string $produits): self
+    {
+        $this->produits = $produits;
 
         return $this;
     }

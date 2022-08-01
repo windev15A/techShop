@@ -148,4 +148,14 @@ class ProductRepository extends ServiceEntityRepository
             return [];
         }
     }
+
+
+    public function getNewProduct(){
+        return $this->findBy(
+            [],
+            ['created_at' => "DESC"],
+            4,
+            0
+        );
+    }
 }

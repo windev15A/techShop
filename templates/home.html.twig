@@ -81,9 +81,65 @@
 			<div class="tab-content p-3">
 				<div class="tab-pane fade show active" id="home">
 					<div class="product_list">
+						{% for product in newProduct %}
+							<div class="card_product">
+								{% if product.image %}
+									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
+								{% else %}
+									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
+
+								{% endif %}
+								<h3>{{product.libelle}}
+								</h3>
+								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...
+								</p>
+								<h6>{{product.prix | number_format(2, '€') }}</h6>
+								<ul>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star-fill"></i>
+									</li>
+									<li>
+										<i class="bi bi-star"></i>
+									</li>
+									<li>
+										<i class="bi bi-star"></i>
+									</li>
+								</ul>
+								<button class="add_card">
+									<a href="{{path('app_show', {id : product.id})}}">
+										<i class="bi bi-eye" style="color: grey"></i>
+									</a>
+									<a href="{{path('wishlist_add', {id: product.id})}}">
+										{% if product.id in app.session.get('wishlist')  %}
+											<i class="bi bi-heart-fill" style="color : red"></i>
+										{% else %}
+											<i class="bi bi-heart" style="color : white"></i>
+										{% endif %}
+									</a>
+									<a href="{{path('panier_add', {id: product.id})}}">
+										<i class="bi bi-cart-plus" style="color: black"></i>
+									</a>
+								</button>
+							</div>
+						{% endfor %}
+						<div class="shadow-lg bg-body rounded-circle d-flex justify-content-center align-items-center" style="width: 40px">
+							<a href="#" class="link-info fs-2"><i class="bi bi-three-dots" style="color: black"></i></a>
+						</div>
+
+					</div>
+				</div>
+				<div class="tab-pane fade" id="profile">
+					<div class="product_list">
 						{% for product in products %}
 							<div class="card_product">
 								{% if product.image %}
+
 									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
 								{% else %}
 									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
@@ -128,56 +184,9 @@
 								</button>
 							</div>
 						{% endfor %}
-
-
-					</div>
-				</div>
-				<div class="tab-pane fade" id="profile">
-					<div class="product_list">
-						{% for product in products %}
-							<div class="card_product">
-								{% if product.image %}
-
-									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
-								{% else %}
-									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
-
-								{% endif %}
-								<h3>{{product.libelle}}
-								</h3>
-								<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit...
-								</p>
-								<h6>{{product.prix | number_format(2, '€') }}</h6>
-								<ul>
-									<li>
-										<i class="bi bi-star-fill"></i>
-									</li>
-									<li>
-										<i class="bi bi-star-fill"></i>
-									</li>
-									<li>
-										<i class="bi bi-star-fill"></i>
-									</li>
-									<li>
-										<i class="bi bi-star-fill"></i>
-									</li>
-									<li>
-										<i class="bi bi-star-fill"></i>
-									</li>
-								</ul>
-								<button class="add_card">
-									<a href="{{path('app_show', {id : product.id})}}">
-										<i class="bi bi-eye" style="color: grey"></i>
-									</a>
-									<a href="#">
-										<i class="bi bi-heart" style="color : white"></i>
-									</a>
-									<a href="{{path('panier_add', {id: product.id})}}">
-										<i class="bi bi-cart-plus" style="color: black"></i>
-									</a>
-								</button>
-							</div>
-						{% endfor %}
+						<div class="shadow-lg bg-body rounded-circle d-flex justify-content-center align-items-center" style="width: 40px">
+							<a href="#" class="link-info fs-2"><i class="bi bi-three-dots" style="color: black"></i></a>
+						</div>
 					</div>
 				</div>
 				<div class="tab-pane fade" id="messages">
@@ -217,8 +226,12 @@
 									<a href="{{path('app_show', {id : product.id})}}">
 										<i class="bi bi-eye" style="color: grey"></i>
 									</a>
-									<a href="#">
-										<i class="bi bi-heart" style="color : white"></i>
+									<a href="{{path('wishlist_add', {id: product.id})}}">
+										{% if product.id in app.session.get('wishlist')  %}
+											<i class="bi bi-heart-fill" style="color : red"></i>
+										{% else %}
+											<i class="bi bi-heart" style="color : white"></i>
+										{% endif %}
 									</a>
 									<a href="{{path('panier_add', {id: product.id})}}">
 										<i class="bi bi-cart-plus" style="color: black"></i>
@@ -226,7 +239,9 @@
 								</button>
 							</div>
 						{% endfor %}
-
+						<div class="shadow-lg bg-body rounded-circle d-flex justify-content-center align-items-center" style="width: 40px">
+							<a href="#" class="link-info fs-2"><i class="bi bi-three-dots" style="color: black"></i></a>
+						</div>
 
 					</div>
 				</div>

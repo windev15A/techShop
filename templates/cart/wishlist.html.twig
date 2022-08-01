@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma liste des envies
+{% endblock %}
+
+
+{% block content %}
+
+
+	<div class="container">
+
+		<div class="shadow p-3 mb-5 bg-body rounded">
+			<h1>Votre liste des envies</h1>
+		</div>
+		<div class="shadow-sm p-3 bg-body rounded">
+			{% if products | length >0 %}
+				<table class="table align-middle">
+					<thead>
+						<tr>
+							<th scope="col">image</th>
+							<th scope="col">Produit</th>
+							<th scope="col">Prix</th>
+							<th scope="col">Panier</th>
+							<th scope="col">Supprimer</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for product in products %}
+							<tr>
+								<th scope="row">
+									{% if product.image %}
+										<img src="{{asset('assets/images/produits/' ~ product.image)}}" alt="" srcset="" style="width: 100px;">
+									{% else %}
+										<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" style="width: 100px;">
+
+									{% endif %}
+								</th>
+								<td>{{product.libelle}}</td>
+								<td>{{product.prix | number_format(2, '€')}}</td>
+								
+								</td>
+								<td>
+									<a href="{{path('panier_add', {id : product.id})}}">
+										<i class="bi bi-cart-plus-fill" style="color: blue"></i>
+									</a>
+								</td>
+								<td>
+									<a href="{{path('Wishlist_delete', {id : product.id})}}">
+										<i class="bi bi-trash-fill" style="color: red"></i>
+									</a>
+								</td>
+							</tr>
+
+						{% endfor %}
+
+					</tbody>
+				</table>
+
+			{% else %}
+				<div class="text-center py-3" style="background: #CDF0EA">
+					<i class="bi bi-bag-heart-fill" style="font-size: 12rem;"></i>
+					<h2>Votre liste des envies est vide...</h2>
+
+					<p>Cliquer
+						<a href="{{path('app_main')}}">ICI</a>
+						pour parcourire notre <a href="{{path('app_main')}}">Catalogue</a>
+					</p>
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endblock %}
