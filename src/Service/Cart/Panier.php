@@ -143,6 +143,5 @@ class Panier
         }
 
         return $total;
-
     }
 }

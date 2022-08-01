@@ -49,34 +49,26 @@
 								</h3>
 								<h6>{{product.prix | number_format(2, '€') }}</h6>
 
-								<button class="add_card">
+								<button class="add_card bg-dark">
 									<a href="{{path('app_show', {id : product.id})}}">
 										<i class="bi bi-eye" style="color: grey"></i>
 									</a>
-									<a href="#">
-										<i class="bi bi-heart" style="color : white"></i>
+									<a href="{{path('wishlist_add', {id: product.id})}}">
+										{% if product.id in app.session.get('wishlist')  %}
+											<i class="bi bi-heart-fill" style="color : red"></i>
+										{% else %}
+											<i class="bi bi-heart" style="color : white"></i>
+										{% endif %}
 									</a>
 									<a href="#">
-										<i class="bi bi-cart-plus" style="color: black"></i>
+										<i class="bi bi-cart-plus" style="color: grey"></i>
 									</a>
 								</button>
 							</div>
-
-
 						{% endfor %}
-
-
 					</div>
-
-
 				</div>
-
 			</div>
-
 		</div>
-
-
 	</div>
-
-
 {% endblock %}

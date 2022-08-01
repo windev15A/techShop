@@ -68,6 +68,7 @@ class MainController extends AbstractController
         return $this->render('home.html.twig',
         [
             "products" => $this->repoProducts->findAll(),
+            'newProduct' => $this->repoProducts->getNewProduct(),
             "categories" => $this->repoCategory->findAll(),
             "fabricants" => $this->repoFabricant->findAll()
         ]);

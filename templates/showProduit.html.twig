@@ -8,7 +8,15 @@
 	<div class="container">
 
 		<div class="d-md-flex d-sm-block order-sm-1 align-items-center p-3 bg-light my-5">
-			<img src="{{asset("assets/images/produits/"~ product.image)}}" alt="" srcset="" width="563px">
+
+			{% if product.image %}
+				<img src="{{asset('assets/images/produits/' ~ product.image)}}" alt="" srcset="" width="563px">
+			{% else %}
+				<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" width="563px">
+
+			{% endif %}
+
+			{# <img src="{{asset("assets/images/produits/"~ product.image)}}" alt="" srcset="" width="563px"> #}
 			<div class="col-7 ms-5">
 				<h2 class="text-uppercase">{{product.libelle}}</h2>
 				<ul class="d-flex list-unstyled">
@@ -28,36 +36,28 @@
 						<i class="bi bi-star mx-1"></i>
 					</li>
 				</ul>
-				<p>
-
-					{# {{product.description}} #}
+				<p class="pe-3">
+					{{product.description}}
 					Lorem ipsum, dolor sit amet consectetur adipisicing elit. Sed cupiditate assumenda, reprehenderit vitae eum laboriosam. Porro asperiores iusto reiciendis officia aliquid nisi tempora? Error, qui odio? Quos magnam officia commodi?
-
-
 				</p>
 
 				<h4 class="my-5">
 					{{product.prix | number_format(2, '€')}}
 				</h4>
-
-
 				<div class="form-group d-flex">
 					<input type="number" name="qty" id="qty" class="form-control" value="1" min="1" style="width: 70px;">
 
-					<a  href="{{path('panier_add', {id: product.id})}}" class="btn btn-dark mx-2">Ajouter au panier</a>
+					<a href="{{path('panier_add', {id: product.id})}}" class="btn btn-dark mx-2">Ajouter au panier</a>
 
 				</div>
 
-				<div class="my-4"> 
-					<p>Catégorie : <strong>{{ product.category.libelle}}</strong> </p>
+				<div class="my-4">
+					<p>Catégorie :
+						<strong>{{ product.category.libelle}}</strong>
+					</p>
 				</div>
-
 			</div>
-
-
 		</div>
-
-
 	</div>
 
 {% endblock %}

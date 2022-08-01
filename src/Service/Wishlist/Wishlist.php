@@ -72,9 +72,10 @@ class Wishlist
     {
 
         $wishlist = $this->session->get('wishlist', []);
-
         if (!empty($wishlist)) {
-            unset($wishlist[$id]);
+            if(($key = array_search($id, $wishlist)) !== false){
+                unset($wishlist[$key]);
+            }
         }
 
         $this->session->set('wishlist', $wishlist);
