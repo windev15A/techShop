@@ -19,32 +19,29 @@ class MainController extends AbstractController
      *
      * @var ProductRepository
      */
-    protected $repoProducts;
+    protected ProductRepository $repoProducts;
     
     /**
      * repoCategory
      *
      * @var CategoryRepository
      */
-    protected $repoCategory;
+    protected CategoryRepository $repoCategory;
 
     
     /**
      * repoFabricant
-     *
      * @var FabricantRepository
      */
-    protected $repoFabricant;
+    protected FabricantRepository $repoFabricant;
 
 
-    
     /**
      * __construct
      *
-     * @param  mixed $repo
-     * @param  mixed $repoCat
-     * @param  mixed $repoFabricant
-     * @return void
+     * @param mixed $repo
+     * @param mixed $repoCat
+     * @param FabricantRepository $repoFab
      */
     public function __construct(
         ProductRepository $repo,
@@ -93,8 +90,8 @@ class MainController extends AbstractController
      * @return Response
      */
     #[Route('detail/{id}', name:'app_show')]    
-    public function showProduct(Product $product){
-
+    public function showProduct(Product $product): Response
+    {
        return $this->render('showProduit.html.twig', [
         'product'  => $product
        ]);

@@ -5,7 +5,6 @@ namespace App\Controller\Admin;
 use DateTime;
 use App\Entity\Product;
 use App\Form\ProductType;
-use Doctrine\ORM\EntityManager;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -21,7 +20,9 @@ class ProductController extends AbstractController
     /**
      * index list des produit
      *
-     * @param  ProductRepository $repo
+     * @param ProductRepository $repo
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
     #[Route('/products', name: 'app_products')]
@@ -51,10 +52,10 @@ class ProductController extends AbstractController
      *
      * @param  mixed $request
      * @param  mixed $manager
-     * @return void
+     * @return Response
      */
     #[Route('/product/new', name: 'app_new_product')]
-    public function newProduct(Request $request, EntityManagerInterface $manager)
+    public function newProduct(Request $request, EntityManagerInterface $manager): Response
     {
 
         $produit = new Product();
@@ -97,14 +98,12 @@ class ProductController extends AbstractController
     }
 
 
-
-
     /**
      * updateProduct
      *
-     * @param  Product $produit
-     * @param  Request $request
-     * @param  EntityManagerInterface $em
+     * @param Product $produit
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
     #[Route('product/update/{id}', name: 'app_update_product')]

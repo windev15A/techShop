@@ -3,11 +3,13 @@
 namespace App\Controller;
 
 
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Throwable;
 
 class ContactController extends AbstractController
 {
@@ -19,19 +21,18 @@ class ContactController extends AbstractController
      */
 
     #[Route('contact', name: 'app_contact')]
-    public function index()
+    public function index(): Response
     {
         return $this->render('contact.html.twig');
     }
 
 
-
     /**
      * sendEmail
      *
-     * @param  mixed $mailer
-     * @param  mixed $request
-     * @return void
+     * @param mixed $mailer
+     * @param mixed $request
+     * @return Response|void
      */
     #[Route('send', name: 'app_sendEmail')]
     public function sendEmail(MailerInterface $mailer, Request $request)
@@ -49,7 +50,7 @@ class ContactController extends AbstractController
             $mailer->send($email);
             $this->addFlash('success', 'Email envoyé avec success');
             return $this->render('home.html.twig');
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             dd($th->getMessage());
         }
     }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTimeInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\CategoryRepository;
@@ -14,11 +15,11 @@ class Category
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    private ?int $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank]
-    private $libelle;
+    private ?string $libelle;
 
     #[ORM\Column(type: 'text', nullable: true)]
     #[Assert\Length(
@@ -27,7 +28,7 @@ class Category
         minMessage: 'La description doit comporter au moins {{ limit }} caractères',
         maxMessage: 'La description ne peut pas dépasser {{ limit }} caractères',
     )]
-    private $description;
+    private ?string $description;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     #[Assert\Image(
@@ -39,16 +40,16 @@ class Category
         ],
         mimeTypesMessage: "Le fichier d'image sélectionné n'est pas valide"  
     )]
-    private $image;
+    private ?string $image;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class)]
-    private $products;
+    private ArrayCollection $products;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private $created_at;
+    private ?DateTimeInterface $created_at;
 
     #[ORM\Column(type: 'datetime', nullable: true)]
-    private $updated_at;
+    private ?DateTimeInterface $updated_at;
 
     public function __construct()
     {
@@ -126,24 +127,24 @@ class Category
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    public function setCreatedAt(?DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
+    public function getUpdatedAt(): ?DateTimeInterface
     {
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
 

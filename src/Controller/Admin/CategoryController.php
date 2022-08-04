@@ -21,7 +21,9 @@ class CategoryController extends AbstractController
     /**
      * index list des catégories
      *
-     * @param  CategoryRepository $repo
+     * @param CategoryRepository $repo
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
     #[Route('/categories', name: 'app_categories')]
@@ -47,17 +49,16 @@ class CategoryController extends AbstractController
     }
 
 
-
     /**
-     * newCategory Afficher formulaire du catgorie 
+     * newCategory Afficher formulaire du catgorie
      * Ajouter un nouveau categorie
      *
-     * @param  mixed $request
-     * @param  mixed $manager
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
     #[Route('/category/new', name: 'app_new_category')]
-    public function newCatgory(Request $request, EntityManagerInterface $manager)
+    public function newCatgory(Request $request, EntityManagerInterface $manager): Response
     {
 
         $category = new Category();
@@ -80,18 +81,14 @@ class CategoryController extends AbstractController
                 $file->move($this->getParameter('image_category'), $nameImage);
             }
 
-
             $category->setCreatedAt(new DateTime("now"));
             $manager->persist($category);
             $manager->flush();
-
 
             $this->addFlash('success', 'La catégorie ' . $category->getLibelle() . ' a été ajouter avec succès');
 
             return $this->redirectToRoute('app_categories');
         }
-
-
         return $this->render(
             'admin/category/new.html.twig',
             [
@@ -101,14 +98,12 @@ class CategoryController extends AbstractController
     }
 
 
-
-
     /**
      * updateCategory
      *
-     * @param  Category $category
-     * @param  Request $request
-     * @param  EntityManagerInterface $em
+     * @param Category $category
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
     #[Route('/category/update/{id}', name: 'app_update_category')]
@@ -165,7 +160,7 @@ class CategoryController extends AbstractController
      * @return Response
      */
     #[Route('/category/delete/{id}', name: 'app_delete_category')]
-    public function deleteCategory(Category $category, EntityManagerInterface $manager)
+    public function deleteCategory(Category $category, EntityManagerInterface $manager): Response
     {
         $idProduit = $category->getId();
         $image_category = $category->getImage();

@@ -5,9 +5,9 @@ namespace App\Controller;
 
 use Psr\Log\LoggerInterface;
 use App\Service\Wishlist\Wishlist;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use PHPUnit\TextUI\XmlConfiguration\Logging\Logging;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -19,26 +19,22 @@ class WishlistController extends AbstractController
      *
      * @var LoggerInterface
      */
-    protected $logger;
+    protected mixed $logger;
     
     /**
      * __construct
      *
-     * @param  mixed $logger
+     * @param  LoggerInterface $logger
      * @return void
      */
     public function __construct(LoggerInterface $logger){
         $this->logger = $logger;
     }
-
-
-
-
     
     /**
      * index
      *
-     * @param  mixed $wishlist
+     * @param  Wishlist $wishlist
      * @return Response
      */
     #[Route('/wishlist', name: 'app_wishlist')]    
@@ -60,7 +56,8 @@ class WishlistController extends AbstractController
      * @return RedirectResponse
      */
     #[Route('wishlist/add/{id}', name:'wishlist_add')]    
-    public function add(int $id, Wishlist $wishlist){
+    public function add(int $id, Wishlist $wishlist): RedirectResponse
+    {
 
         $wishlist->addToWishlist($id);
 
@@ -73,12 +70,12 @@ class WishlistController extends AbstractController
     /**
      * delete
      *
-     * @param  int $id
+     * @param int $id
      * @param  Wishlist $wishlist
      * @return RedirectResponse
      */
     #[Route('wishlist/delete/{id}', name:'Wishlist_delete')]
-    public function delete($id, Wishlist $wishlist)
+    public function delete(int $id, Wishlist $wishlist): RedirectResponse
     {
         $wishlist->deleteToWishlist($id);
 
