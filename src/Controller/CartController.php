@@ -50,7 +50,13 @@ class CartController extends AbstractController
 
 
 
-    #[Route('/panier', name: 'app_cart')]
+    /**
+     * index
+     *
+     * @param  mixed $panier
+     * @return Response
+     */
+    #[Route('/panier', name: 'app_cart')]    
     public function index(Panier $panier): Response
     {
         return $this->render('cart/index.html.twig', [
@@ -121,7 +127,6 @@ class CartController extends AbstractController
     public function delete($id, Panier $panier)
     {
         try {
-
             $panier->deleteToCart($id);
 
             $this->addFlash('success', 'Le produit est retiré du panier :(');
@@ -143,8 +148,6 @@ class CartController extends AbstractController
     #[Route('panier/promo/{codePromo}', name: 'panier_add_code')]
     public function addCodePromo(string $codePromo, PromoRepository $promoRepository, Request $request): JsonResponse
     {
-
-        
         $promo = $promoRepository->findOneBycode($codePromo);
 
         $reduction = $this->session->get('reduction', []);
