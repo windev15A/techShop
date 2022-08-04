@@ -6,11 +6,10 @@
 
 {% block content %}
 	<div class="container">
-		<div class="body_content">
+		<div class="shadow p-3 my-5 bg-body rounded">
 			<div class="formuleMerci">
-
 				<h2 class="">Merci!</h2>
-				<p class="lead">
+				<p class="alert alert-success">
 					<strong>Votre commande a été traitée avec succès</strong>
 				</p>
 				<hr>
@@ -18,12 +17,10 @@
 					Vous rencontrez un problème?
 					<a href="{{path('app_contact')}}">Nous contacter</a>
 				</p>
-				<div class="btn_merci">
-					<a class="btnj" href="{{ path('app_main') }}" role="button">Notre catalogue</a>
+				<div class="btn btn-primary">
+					<a class="text-white" href="{{ path('app_main') }}" role="button">Notre catalogue</a>
 				</div>
-
 			</div>
-
 		</div>
 	</div>
     {% endblock %}

@@ -89,6 +89,7 @@ class PaiementController extends AbstractController
     #[Route('/merci', name: 'app_thanks')]    
     public function successUrl(Panier $panier, EntityManagerInterface $em, Calculer $calculer)
     {
+
         if (count($panier->getFullCart())) {
             try {
                 //code...

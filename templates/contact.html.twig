@@ -9,40 +9,41 @@
 		<h1>SERVICE CLIENT -  CONTACTEZ-NOUS</h1>
 
 		<div class="shadow p-3 mb-5 rounded" style="background: #CDF0EA">
+			<form action="{{path('app_sendEmail')}}" method="post">
+				<div class="row g-2">
+					<div class="col-md-4 col-sm-12 p-3">
+						<label for="email" class="form-label">Objet</label>
+						<select class="form-select" name="object" aria-label="Default select example">
+							<option selected>Choisissez</option>
+							<option value="Service client">Service client</option>
+							<option value="Service technique">Service technique</option>
+						</select>
+						<div class="mt-3">
+							<label for="email" class="form-label">Adresse e-mail</label>
+							<input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+						</div>
+						<div class="mt-3">
+							<label for="reference" class="form-label">Référence de commande</label>
+							<input type="text" name="numeroCmd" class="form-control" id="reference" placeholder="ref123456">
+						</div>
 
-			<div class="row g-2">
-				<div class="col-md-4 col-sm-12 p-3">
-					<label for="email" class="form-label">Objet</label>
-					<select class="form-select" aria-label="Default select example">
-						<option selected>Choisissez</option>
-						<option value="1">Service client</option>
-						<option value="2">Service technique</option>
-					</select>
-					<div class="mt-3">
-						<label for="email" class="form-label">Adresse e-mail</label>
-						<input type="email" class="form-control" id="email" placeholder="name@example.com">
+						<div class="mt-3">
+							<label for="reference" class="form-label">Joindre un fichier</label>
+							<input type="file" name="jointe" class="form-control" id="inputGroupFile02">
+
+						</div>
 					</div>
-					<div class="mt-3">
-						<label for="reference" class="form-label">Référence de commande</label>
-						<input type="text" class="form-control" id="reference" placeholder="ref123456">
+					<div class="col-md-8 col-sm-12 p-3">
+						<div class="mb-3">
+							<label for="message" class="form-label">Message</label>
+							<textarea class="form-control" name="message" id="message" rows="12"></textarea>
+						</div>
 					</div>
-
-					<div class="mt-3">
-						<label for="reference" class="form-label">Joindre un fichier</label>
-						<input type="file" class="form-control" id="inputGroupFile02">
-
+					<div class="p-3">
+						<button type="submit" class="btn btn-danger ">ENVOYER</button>
 					</div>
 				</div>
-				<div class="col-md-8 col-sm-12 p-3">
-					<div class="mb-3">
-						<label for="message" class="form-label">Message</label>
-						<textarea class="form-control " id="message" rows="12"></textarea>
-					</div>
-				</div>
-				<div class="p-3">
-					<button type="submit" class="btn btn-danger ">ENVOYER</button>
-				</div>
-			</div>
+			</form>
 		</div>
 	</div>
 
