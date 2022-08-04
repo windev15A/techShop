@@ -11,9 +11,11 @@ use Psr\Log\LoggerInterface;
 use App\Entity\HistoireCommande;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Throwable;
 
 class PaiementController extends AbstractController
 {
@@ -23,23 +25,21 @@ class PaiementController extends AbstractController
      *
      * @var LoggerInterface
      */
-    protected $logger;
+    protected LoggerInterface $logger;
 
     /**
      * session
      *
      * @var SessionInterface
      */
-    protected $session;
-
-
+    protected SessionInterface $session;
 
 
     /**
      * __construct
      *
-     * @param  mixed $logger
-     * @return void
+     * @param RequestStack $session
+     * @param mixed $logger
      */
     public function __construct(RequestStack $session, LoggerInterface $logger)
     {
@@ -50,8 +50,8 @@ class PaiementController extends AbstractController
     /**
      * index
      *
-     * @param  mixed $panier
-     * @param  mixed $calculer
+     * @param Panier $panier
+     * @param Calculer $calculer
      * @return Response
      */
     #[Route('/paiement', name: 'app_paiement')]
@@ -70,24 +70,26 @@ class PaiementController extends AbstractController
                 'clientSecret' => $intent->client_secret,
                 'total' => $total
             ]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->logger->error($th->getMessage());
             return $this->redirectToRoute('app_main');
         }
     }
 
 
-    
     /**
      * successUrl
      *
-     * @param  mixed $panier
-     * @param  mixed $em
-     * @param  mixed $calculer
+     * @param Panier $panier
+     * @param mixed $em
+     * @param mixed $calculer
      * @return Response
      */
     #[Route('/merci', name: 'app_thanks')]    
-    public function successUrl(Panier $panier, EntityManagerInterface $em, Calculer $calculer)
+    public function successUrl(
+        Panier $panier,
+        EntityManagerInterface $em,
+        Calculer $calculer): Response
     {
 
         if (count($panier->getFullCart())) {
@@ -106,7 +108,7 @@ class PaiementController extends AbstractController
 
                 $this->session->remove('panier');
                 return $this->render('paiement/merci.html.twig');
-            } catch (\Throwable $th) {
+            } catch (Throwable $th) {
                 $this->logger->error($th->getMessage());
             }
         } else {

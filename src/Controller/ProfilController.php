@@ -5,10 +5,9 @@ namespace App\Controller;
 use DateTime;
 use App\Entity\User;
 use App\Form\ProfilType;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Security;
+
 use App\Repository\HistoireCommandeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -19,12 +18,7 @@ class ProfilController extends AbstractController
     /**
      * @var HistoireCommandeRepository
      */
-    protected $repo;
-
-    /**
-     * @var Security
-     */
-    private $security;
+    protected HistoireCommandeRepository $repo;
 
 
     /**
@@ -33,10 +27,10 @@ class ProfilController extends AbstractController
      * @param  HistoireCommandeRepository $rep
      * @return void
      */
-    public function __construct(HistoireCommandeRepository $rep, Security $security)
+    public function __construct(HistoireCommandeRepository $rep)
     {
         $this->repo =  $rep;
-        $this->security = $security;
+
     }
 
 
@@ -55,7 +49,10 @@ class ProfilController extends AbstractController
     /**
      * showInfo
      *
-     * @return void
+     * @param User $user
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
      */
     #[Route('mesinfos/{id}', name: 'app_show_info')]
     public function showInfo(User $user, Request $request, EntityManagerInterface $manager): Response
@@ -82,10 +79,11 @@ class ProfilController extends AbstractController
     }
 
 
-
-
+    /**
+     * @return Response
+     */
     #[Route('historique', name: 'hitorique_commande')]
-    public function historiqueCommande()
+    public function historiqueCommande(): Response
     {
         
         $commandes = $this->repo->findBy([

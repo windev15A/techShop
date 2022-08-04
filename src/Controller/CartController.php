@@ -2,7 +2,8 @@
 
 namespace App\Controller;
 
-use DateTime;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Throwable;
 use App\Service\Cart\Panier;
 use Psr\Log\LoggerInterface;
@@ -23,16 +24,14 @@ class CartController extends AbstractController
      *
      * @var LoggerInterface
      */
-    protected $logger;
+    protected mixed $logger;
 
     /**
      * session
      *
      * @var SessionInterface
      */
-    protected $session;
-
-
+    protected SessionInterface $session;
 
 
     /**
@@ -46,9 +45,6 @@ class CartController extends AbstractController
         $this->session = $session->getSession();
         $this->logger = $logger;
     }
-
-
-
 
     /**
      * index
@@ -77,7 +73,7 @@ class CartController extends AbstractController
      * @return RedirectResponse
      */
     #[Route('panier/add/{id}', name: 'panier_add')]
-    public function add(int $id, Panier $panier)
+    public function add(int $id, Panier $panier): RedirectResponse
     {
 
         try {
@@ -93,13 +89,14 @@ class CartController extends AbstractController
     /**
      * update
      *
-     * @param  int $id
-     * @param  int $qty
-     * @param  Panier $panier
+     * @param int $id
+     * @param int $qty
+     * @param Panier $panier
+     * @param Request $request
      * @return RedirectResponse
      */
     #[Route('panier/update/{id}/{qty}', name: 'panier_update')]
-    public function update(int $id, int $qty, Panier $panier, Request $request)
+    public function update(int $id, int $qty, Panier $panier, Request $request): RedirectResponse
     {
 
         try {
@@ -107,7 +104,7 @@ class CartController extends AbstractController
             $panier->updateCart($id, $qty);
 
             $this->addFlash('success', 'La quantité du produit est passé a ' . $qty);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->logger->error($th->getMessage());
         }
 
@@ -119,18 +116,18 @@ class CartController extends AbstractController
     /**
      * delete
      *
-     * @param  int $id
-     * @param  Panier $panier
+     * @param int $id
+     * @param Panier $panier
      * @return RedirectResponse
      */
     #[Route('panier/delete/{id}', name: 'panier_delete')]
-    public function delete($id, Panier $panier)
+    public function delete(int $id, Panier $panier): RedirectResponse
     {
         try {
             $panier->deleteToCart($id);
 
             $this->addFlash('success', 'Le produit est retiré du panier :(');
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->logger->error($th->getMessage());
         }
 
@@ -138,15 +135,15 @@ class CartController extends AbstractController
     }
 
 
-
     /**
      * addCodePromo
      *
-     * @param  string $codePromo
-     * @return Jsonesponse
+     * @param string $codePromo
+     * @param PromoRepository $promoRepository
+     * @return JsonResponse
      */
     #[Route('panier/promo/{codePromo}', name: 'panier_add_code')]
-    public function addCodePromo(string $codePromo, PromoRepository $promoRepository, Request $request): JsonResponse
+    public function addCodePromo(string $codePromo, PromoRepository $promoRepository): JsonResponse
     {
         $promo = $promoRepository->findOneBycode($codePromo);
 
@@ -171,11 +168,12 @@ class CartController extends AbstractController
     /**
      * addCodePromo
      *
-     * @param  string $codePromo
-     * @return void
+     * @param string $codePromo
+     * @param Request $request
+     * @return RedirectResponse
      */
     #[Route('panier/promo/delete/{codePromo}', name: 'panier_delete_code')]
-    public function DeleteCodePromo(string $codePromo, Request $request)
+    public function DeleteCodePromo(string $codePromo, Request $request): RedirectResponse
     {
         $promo = $this->session->get('reduction', []);
 

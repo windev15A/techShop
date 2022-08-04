@@ -21,7 +21,9 @@ class PromoController extends AbstractController
     /**
      * index list des catégories
      *
-     * @param  PromoRepository $repo
+     * @param PromoRepository $repo
+     * @param Request $request
+     * @param PaginatorInterface $paginator
      * @return Response
      */
     #[Route('/promos', name: 'app_promos')]
@@ -47,10 +49,13 @@ class PromoController extends AbstractController
     }
 
 
-
-   
+    /**
+     * @param Request $request
+     * @param EntityManagerInterface $manager
+     * @return Response
+     */
     #[Route('/promo/new', name: 'app_new_promo')]
-    public function newPromo(Request $request, EntityManagerInterface $manager)
+    public function newPromo(Request $request, EntityManagerInterface $manager): Response
     {
 
         $promo = new promo();
@@ -61,12 +66,9 @@ class PromoController extends AbstractController
         if ($formpromo->isSubmitted() && $formpromo->isValid()) {
 
             $promo = $formpromo->getData();
-
-
             $promo->setCreatedAt(new DateTime("now"));
             $manager->persist($promo);
             $manager->flush();
-
 
             $this->addFlash('success', 'Le code promo a été ajouter avec succès');
 
@@ -83,14 +85,12 @@ class PromoController extends AbstractController
     }
 
 
-
-
     /**
      * updatepromo
      *
-     * @param  Promo $promo
-     * @param  Request $request
-     * @param  EntityManagerInterface $em
+     * @param Promo $promo
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
     #[Route('/promo/update/{id}', name: 'app_update_promo')]

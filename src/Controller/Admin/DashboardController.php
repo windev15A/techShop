@@ -16,9 +16,4 @@ class DashboardController extends AbstractController
         return $this->render('admin/dashboard.html.twig');
     }
 
-
-    #[Route('/toto/{id}', name: 'toto')]
-    public function toto(int $id){
-        dd("mon toto ". $id);
-    }
 }

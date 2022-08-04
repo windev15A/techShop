@@ -58,7 +58,7 @@ class FabricantController extends AbstractController
      * @return Response
      */
     #[Route('/fabricant/new', name: 'app_new_fabricant')]
-    public function newFabricant(Request $request, EntityManagerInterface $manager)
+    public function newFabricant(Request $request, EntityManagerInterface $manager): Response
     {
 
         $fabricant = new Fabricant();
@@ -72,7 +72,6 @@ class FabricantController extends AbstractController
             $file = $formFabricant->get('image')->getData();
 
             if ($file) {
-
                 $nameImage = Date('now') . "-" . uniqid() . "." . $file->guessExtension();
                 $fabricant->setImage($nameImage);
                 $file->move($this->getParameter('image_fabricant'), $nameImage);
@@ -98,14 +97,12 @@ class FabricantController extends AbstractController
     }
 
 
-
-
     /**
      * updateFabricant
      *
-     * @param  Fabricant $fabricant
-     * @param  Request $request
-     * @param  EntityManagerInterface $em
+     * @param Fabricant $fabricant
+     * @param Request $request
+     * @param EntityManagerInterface $manager
      * @return Response
      */
     #[Route('/Fabricant/update/{id}', name: 'app_update_fabricant')]
