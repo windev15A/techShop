@@ -5,7 +5,7 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Filter;
+use App\Data\Filter;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -81,7 +81,6 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function recherche(Filter $filter) :array
     {
-
         try {
             
             $query = $this->createQueryBuilder('p')
@@ -110,7 +109,7 @@ class ProductRepository extends ServiceEntityRepository
                     ->setParameter('fabricants', $filter->fabricants);
             }
 
-            if ($filter->min) {
+            if ($filter->min ) {
                 $query = $query
                     ->andWhere("p.prix >= :min")
                     ->setParameter('min', $filter->min);

@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
+use App\Data\Filter;
+use App\Form\SearchType;
 use App\Repository\ProductRepository;
-use Filter;
-use SearchType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class SearchProductController extends AbstractController
 {
-
 
     /**
      * repo
