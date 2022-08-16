@@ -13,7 +13,7 @@ class Filter
      *
      * @var string
      */
-    public string $q;
+    public ?string $q = null;
 
 
 
@@ -38,7 +38,7 @@ class Filter
      * @var int
      */
     #[Assert\LessThan(propertyPath: 'max', message: "Le prix minimum doit être inférieure au prix maximum")]
-    public int $min;
+    public ?int $min = 0;
 
 
     /**
@@ -46,7 +46,7 @@ class Filter
      *
      * @var int
      */
-    public int $max;
+    public ?int $max = 0;
 
 
     /**
@@ -54,5 +54,10 @@ class Filter
      *
      * @var mixed
      */
-    public mixed $order;
+    public mixed $order =null;
+
+    public function __sleep()
+    {
+        return [];
+    }
 }

@@ -5,8 +5,9 @@ namespace App\Repository;
 use App\Entity\Product;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Filter;
+use App\Data\Filter;
 use Psr\Log\LoggerInterface;
+use Throwable;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -19,7 +20,7 @@ use Psr\Log\LoggerInterface;
 class ProductRepository extends ServiceEntityRepository
 {
 
-    protected $logger;
+    protected LoggerInterface $logger;
 
     public function __construct(ManagerRegistry $registry, LoggerInterface $logger)
     {
@@ -81,7 +82,6 @@ class ProductRepository extends ServiceEntityRepository
      */
     public function recherche(Filter $filter) :array
     {
-
         try {
             
             $query = $this->createQueryBuilder('p')
@@ -96,7 +96,7 @@ class ProductRepository extends ServiceEntityRepository
                     ->orWhere("p.description LIKE :q")
                     ->orWhere("c.libelle LIKE :q")
                     ->orWhere("f.nom LIKE :q")
-                    ->setParameter("q", "%{$filter->q}%");
+                    ->setParameter("q", "%$filter->q%");
             }
 
             if ($filter->categories) {
@@ -110,7 +110,7 @@ class ProductRepository extends ServiceEntityRepository
                     ->setParameter('fabricants', $filter->fabricants);
             }
 
-            if ($filter->min) {
+            if ($filter->min ) {
                 $query = $query
                     ->andWhere("p.prix >= :min")
                     ->setParameter('min', $filter->min);
@@ -143,14 +143,18 @@ class ProductRepository extends ServiceEntityRepository
             return $query
                 ->getQuery()
                 ->getResult();
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             $this->logger->error($th->getMessage());
             return [];
         }
     }
 
 
-    public function getNewProduct(){
+    /**
+     * @return Product[]
+     */
+    public function getNewProduct(): array
+    {
         return $this->findBy(
             [],
             ['created_at' => "DESC"],

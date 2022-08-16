@@ -1,16 +1,16 @@
-
-
 <?php
 
+namespace App\Form;
 
+use App\Data\Filter;
 use App\Entity\Category;
 use App\Entity\Fabricant;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class SearchType extends AbstractType
 {

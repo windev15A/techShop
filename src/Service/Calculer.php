@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class Calculer
 {
 
-
     /**
      * session
      *
@@ -17,15 +16,19 @@ class Calculer
      */
     protected $session;
 
-
-
     public function __construct(RequestStack $session)
     {
         $this->session = $session->getSession();
     }
 
-    
-    public function totalAPayer(Panier $panier)
+        
+    /**
+     * totalAPayer
+     *
+     * @param  Panier $panier
+     * @return float 
+     */
+    public function totalAPayer(Panier $panier): float
     {
         $total = $panier->getTotal();
         $reduction = $this->session->get('reduction', []);

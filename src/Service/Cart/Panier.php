@@ -82,20 +82,16 @@ class Panier
      * deleteToCart
      * 
      * Supprimer un produit du panier
-     *
      * @param  int $id
      * @return void
      */
 
     public function deleteToCart(int $id)
     {
-
         $panier = $this->session->get('panier', []);
-
         if (!empty($panier)) {
             unset($panier[$id]);
         }
-
         $this->session->set('panier', $panier);
     }
 
@@ -120,7 +116,6 @@ class Panier
                 'qty' => $qty
             ];
         }
-
         return $dataPanier;
     }
 
@@ -135,13 +130,10 @@ class Panier
     public function getTotal()
     {
         $total = 0;
-
         $dataPanier = $this->getFullCart();
-
         foreach ($dataPanier as $item) {
             $total += $item['product']->getPrix() * $item['qty'];
         }
-
         return $total;
     }
 }
