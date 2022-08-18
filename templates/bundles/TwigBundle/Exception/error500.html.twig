@@ -1,0 +1,24 @@
+{% extends "base.html.twig" %}
+
+{% block title %}
+   500 Erreur serveur 
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+    
+        <div class="page-wrap d-flex flex-row align-items-center">
+			<div class="container">
+				<div class="row justify-content-center">
+					<div class="col-md-12 text-center">
+						<span class="d-block" style="font-size: 200px;">500</span>
+						<h1>Oooooops - Erreur 500</h1>
+						<div class="mb-4 lead">Merci de contacter votre administrateur </div>
+						<a href="{{path('app_main')}}" class="btn btn-link">Accueil</a>
+					</div>
+				</div>
+			</div>
+		</div>
+    
+    </div>
+{% endblock %}

@@ -12,7 +12,7 @@ body {
 .dialogue_flash {
   text-align: center;
   padding: 17px;
-  background: greenyellow;
+  background: rgb(209, 255, 140);
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 10px;

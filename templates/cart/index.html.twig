@@ -158,59 +158,62 @@
 	</div>
 
 
-</div>{% endblock %}{% block javascript %}
-<script>
-	let qty = document.querySelectorAll('#qty');
-let inputCode = document.querySelector('#inputCode')
-let btn_code = document.querySelector('#btn_promo')
-let input_error = document.querySelector('.validate')
+</div>
+{% endblock %}
+{% block javascript %}
+	<script>
+		let qty = document.querySelectorAll('#qty');
+		let inputCode = document.querySelector('#inputCode')
+		let btn_code = document.querySelector('#btn_promo')
+		let input_error = document.querySelector('.validate')
 
-// Function appliquer le promo
-btn_code.addEventListener('click', function () { // requet ajax pour applique le code promo
-if (inputCode.value) {
-	input_error.innerHTML = ""
-	$.ajax({
-	url: `panier/promo/${inputCode.value}`,
-	type: "POST",
-	success: function (response) {
-	if (response.success) {
-	input_error.innerHTML = response.success
-	input_error.classList.remove("text-danger");
-	input_error.classList.add("text-success");
-	window.location.reload();
-
-
-} else {
-	input_error.innerHTML = response.error
-	input_error.classList.remove("text-success");
-	input_error.classList.add("text-danger");
-
-}
-},
-error: function () {
-input_error.classList.remove("text-success");
-input_error.classList.add("text-danger");
-input_error.innerHTML = "Erreur serveur réessayer plus tard !"
-}
-})
-
-} else {
-inputCode.style.border = "2px outset red";
-input_error.innerHTML = "Saisire un code promo "
-}
-})
+		// Function appliquer le promo
+		btn_code.addEventListener('click', function () { // requet ajax pour applique le code promo
+		if (inputCode.value) {
+			input_error.innerHTML = ""
+			$.ajax({
+			url: `panier/promo/${inputCode.value}`,
+			type: "POST",
+			success: function (response) {
+			if (response.success) {
+			input_error.innerHTML = response.success
+			input_error.classList.remove("text-danger");
+			input_error.classList.add("text-success");
+			window.location.reload();
 
 
-// Function pour changer la quantité
-Array.from(qty).forEach((element) => {
-element.addEventListener("change", function () {
-var id = element.getAttribute('data-id')
+		} else {
+			input_error.innerHTML = response.error
+			input_error.classList.remove("text-success");
+			input_error.classList.add("text-danger");
+
+		}
+		},
+		error: function () {
+		input_error.classList.remove("text-success");
+		input_error.classList.add("text-danger");
+		input_error.innerHTML = "Erreur serveur réessayer plus tard !"
+		}
+		})
+
+		} else {
+		inputCode.style.border = "2px outset red";
+		input_error.innerHTML = "Saisire un code promo "
+		}
+		})
 
 
-window.location.href = `/panier/update/${id}/${
-parseInt(this.value)
-}`
+		// Function pour changer la quantité
+		Array.from(qty).forEach((element) => {
+		element.addEventListener("change", function () {
+		var id = element.getAttribute('data-id')
 
-})
-})
-</script>{% endblock %}
+
+		window.location.href = `/panier/update/${id}/${
+		parseInt(this.value)
+		}`
+
+		})
+		})
+	</script>
+{% endblock %}

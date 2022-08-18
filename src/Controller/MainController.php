@@ -102,5 +102,11 @@ class MainController extends AbstractController
 
 
 
+
+    #[Route('/error', name: 'app_error')]    
+    public function error(): Response
+    {
+        return $this->render('bundles/TwigBundle/Exception/error500.html.twig');
+    }
    
 }

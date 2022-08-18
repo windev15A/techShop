@@ -5,9 +5,7 @@
 
 {% block content %}
 	<div class="container">
-
 		<h1>SERVICE CLIENT -  CONTACTEZ-NOUS</h1>
-
 		<div class="shadow p-3 mb-5 rounded" style="background: #CDF0EA">
 			<form action="{{path('app_sendEmail')}}" method="post">
 				<div class="row g-2">
@@ -26,7 +24,6 @@
 							<label for="reference" class="form-label">Référence de commande</label>
 							<input type="text" name="numeroCmd" class="form-control" id="reference" placeholder="ref123456">
 						</div>
-
 						<div class="mt-3">
 							<label for="reference" class="form-label">Joindre un fichier</label>
 							<input type="file" name="jointe" class="form-control" id="inputGroupFile02">
@@ -46,6 +43,4 @@
 			</form>
 		</div>
 	</div>
-
-
 {% endblock %}
