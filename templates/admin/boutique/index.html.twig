@@ -1,0 +1,102 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Liste des boutiques
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="head_main">
+		<h1>Liste des boutiques</h1>
+		{% for message in app.flashes('success') %}
+
+		<div class="dialogue_flash" id="alertMessage">
+			{{message}}
+		</div>
+	{% endfor %}
+
+	</div>
+
+	<div class="details">
+		<div class="recentOrders">
+
+			<div class="cardHeader">
+				<h2>boutiques</h2>
+				<a href="{{path('app_new_boutique')}}" class="btn">Nouveau</a>
+			</div>
+			{% if boutiques is empty %}
+				<div class="data_empty">
+					<h3>Pas de données à afficher
+					</h3>
+				</div>
+			{% else %}
+				<table>
+					<thead>
+						<tr>
+							<td>#ID</td>
+							<td>Nom</td>
+							<td>Adresse</td>
+							<td>Longitude</td>
+							<td>Latitude</td>
+							<td>Date création</td>
+							<td>Actions</td>
+						</tr>
+					</thead>
+					<tbody>
+
+						{% for boutique in boutiques %}
+
+							<tr>
+								<td>{{boutique.id}}</td>
+								<td>
+									{{boutique.nom}}
+								</td>
+								<td>{{boutique.adresse}}</td>
+								<td>{{boutique.longitude}}</td>
+								<td>{{boutique.latitude}}</td>
+								<td>{{boutique.createdAt | date("d/m/Y", "Europe/Paris") }}</td>
+								<td style="display: table-cell;">
+									<div style="display: flex;justify-content: space-around;">
+										<a href="#" class="btn btn_edit">
+											<i class="fa fa-pencil" aria-hidden="true"></i>
+										</a>
+										<a href="#" class="btn btn_delete">
+											<i class="fa fa-trash" aria-hidden="true"></i>
+										</a>
+									</div>
+								</td>
+							</tr>
+						{% endfor %}
+
+					</tbody>
+				</table>
+				{{ knp_pagination_render(boutiques) }}
+			{% endif %}
+		</div>
+		<div class="recentCustomers">
+			<div class="cardHeader">
+				<h2>Statistiques</h2>
+			</div>
+			{# <table>
+				<tbody>
+				{% for boutique in boutiques %}
+					
+					<tr>
+						<td width="60px">
+							<div class="imgBx">
+								<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
+							</div>
+						</td>
+						<td>
+							<h4>{{boutique.libelle}}<br/><span>Total produits : {{boutique.products | length}}</span>
+							</h4>
+						</td>
+					</tr>
+				{% endfor %}
+					
+				</tbody>
+			</table> #}
+		</div>
+	</div>
+{% endblock %}
+

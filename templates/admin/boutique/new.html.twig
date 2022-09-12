@@ -1,0 +1,157 @@
+{% extends 'admin/base.html.twig' %}
+
+{% block title %}Nouvelle boutique
+{% endblock %}
+
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{asset('assets/css/style_form.css')}}">
+
+{% endblock %}
+
+{% block content %}
+
+
+	<div class="head_main">
+		<h1>Création d'une nouvelle boutique</h1>
+	</div>
+
+	<div class="details">
+		<div class="recentOrders">
+
+			<div class="cardHeader">
+				<h2>Nouvelle boutique</h2>
+				<a href="{{path('app_admin_boutique')}}">
+					<i class="fa fa-close fa-2x" style="color:gray"></i>
+				</a>
+			</div>
+
+			<div>
+
+				<form action="{{ path('app_store_boutique')}}" method="post" class="border rounded p-3 ">
+
+					<div class="form-group">
+						<label class="fw-bold">Nom</label>
+						<input type="text" name="nom" class="form-control" placeholder="Nom du boutique" aria-describedby="helpId">
+
+					</div>
+					<div class="form-group">
+						<div class="d-flex justify-content-between align-items-center position-relative my-2">
+							<div class="col-12 mt-2">
+								<label class="fw-bold">Adresse</label>
+								<input type="text" name="adresse" id="champ-ville" class="form-control" placeholder="Adresse de la boutique" aria-describedby="helpId">
+
+								<select multiple class="form-control" id="selectVille" style="display: none;" onchange="getLatLon(this.options[selectedIndex])"></select>
+							</div>
+							<i class="fa fa-street-view" onclick="jeSuisLa()" title="Je suis ici"></i>
+						</div>
+					</div>
+					<div class="d-flex justify-content-between mt-3">
+						<div class="form-group col-5">
+							<label class="fw-bold">Longitude</label>
+							<input type="text" name="longitude" id="long" class="form-control" placeholder="Longitude du boutique" aria-describedby="helpId">
+						</div>
+						<div class="form-group col-5">
+							<label class="fw-bold">Latitude</label>
+							<input type="text" name="latitude" id="lat" class="form-control" placeholder="Latitude du boutique" aria-describedby="helpId">
+						</div>
+					</div>
+
+					<div class="text-center mt-4">
+						<button type="submit" class="btn_save ">Enregistrer</button>
+					</div>
+				</form>
+
+			</div>
+
+
+			<div class="recentCustomers"></div>
+		</div>
+	</div>
+    <div id="map" style="height:0px;"></div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // initialsiation des variables
+        let carte = L.map("map").setView([48.852969, 2.349903], 13);
+        let latitude = document.getElementById("lat");
+        let longitude = document.getElementById("long");
+        let champVille = document.getElementById("champ-ville");
+        let selectVille = document.getElementById("selectVille");
+
+
+        /**
+         * Afficher les resultat du maps dans une liste
+         *
+         * json data
+         */
+        function displaySearch(data) {
+            selectVille.style.display = "block"
+            let htmlView = '';
+            data.forEach(element => {
+
+                adresse = element.display_name.split(",");
+                adresseComplet = `${adresse[0]}${adresse[1]}${adresse[7]}${adresse[2]}${adresse[8]}`;
+                if (element.lat != null) {
+                    htmlView += `
+                    <option value="` + [element.lat, element.lon] + `" >` + adresseComplet + `</option>`;
+                }
+            })
+            $('select').html(htmlView);
+        }
+
+        // Obtenire latitude et longitude des options
+        function getLatLon(value) {
+
+            coordonee = value.value.split(',');
+            champVille.value = value.innerHTML;
+            latitude.value = coordonee[0]
+            longitude.value = coordonee[1]
+            selectVille.style.display = "none"
+        }
+
+
+        //Afficher la position en cas de suucees
+        function success(pos) {
+            var crd = pos.coords;
+            fetch(
+                    `https://nominatim.openstreetmap.org/reverse?format=json&lat=${crd.latitude}&lon=${crd.longitude}&zoom=18&addressdetails=1`
+                )
+                .then((response) => {
+                    response.json()
+                        .then(function(json) {
+                            adresse = json.display_name.split(",");
+                            adresseComplet = `${adresse[0]}${adresse[1]}${adresse[7]}${adresse[2]}${adresse[8]}`;
+
+                            champVille.value = adresseComplet;
+                            latitude.value = json.lat
+                            longitude.value = json.lon
+                        });
+                }).catch((error) => {
+                    console.log(error);
+                })
+        }
+
+        // On cas d erreur on affiche une erreur
+        function error(err) {
+            console.warn(`ERREUR (${err.code}): ${err.message}`);
+        }
+
+
+        /**
+         * Obtenir la position de l'utilisateur
+         *
+         */
+        function jeSuisLa() {
+            selectVille.style.display = "none"
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(success, error);
+            } else {
+                console.log('Le navigateur ne permet pas la localisation');
+            }
+
+        }
+    </script>
+    
+{% endblock %}

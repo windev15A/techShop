@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Trouver une boutique{% endblock %}
+
+
+{% block content %}
+<style>
+        @media only screen and (max-width: 425px) {
+            .mini {
+                display: flex;
+                flex-direction: column-reverse
+            }
+        }
+
+    </style>
+    <div class="container-fluid">
+        <h1>Notre réseau</h1>
+        <div class="d-md-flex mini">
+            <div class=" mb-2 col-md-4">
+                <div class="shadow p-3 mb-3 bg-body rounded">
+                    <div id="formSearch">
+                        <div class="d-flex justify-content-between align-items-center position-relative">
+                            <div class="col-md-8 col-sm-12">
+                                <label for="champ-ville" class="fw-bold">Saisir une ville   : </label>
+                                <input class="form-control col-md-6" name="search" type="text" id="search" placeholder="Saisir une ville">
+                                <input class="form-control" type="hidden" name="id" type="text" id="id">
+                                <select class="d-none mb-5 form-control" id="liste" multiple
+                                    onchange="getValue(this,this.options[selectedIndex].innerHTML)"></select>
+                            </div>
+                        </div>
+                        <div class="mt-3">
+                            <label for="champ-distance" class="fw-bold">Distance : </label>
+                            <input name="distance" type="range" min="5" max="200" id="champ-distance">
+                            <p id="valeur-distance" class="fw-bold">100 km</p>
+                        </div>
+                        <button class="btn btn-primary w-25 mb-5" onclick="clickRecherche()">Rechercher</button>
+
+                    </div>
+                </div>
+                <div class=" shadow p-3 mb-3 bg-body rounded ">
+
+                    <h3 class="text-center py-3">Liste des boutiques à proximity</h3>
+                    <div id="boutiqueProxi" class="px-3 ">
+
+                    </div>
+
+                </div>
+            </div>
+            <div id="map" style="height:650px;" class="border p-5 col-md-8"></div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block javascript %}
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="{{ asset('assets/js/boutique.js') }}"></script>
+{% endblock %}
+
+
+
+

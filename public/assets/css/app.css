@@ -402,6 +402,23 @@ body {
   color: red;
 }
 
+.btn_save {
+  width: 300px;
+  padding: 5px 10px 5px 10px;
+  margin-top: 20px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-weight: 700;
+  background-color: rgb(120, 242, 96);
+}
+.btn_save {
+  transition-duration: 0.4s;
+}
+.btn_save:hover {
+  background-color: #4caf50; /* Green */
+  color: white;
+}
+
 
 /* Responsive*/
 

@@ -8,28 +8,29 @@
 			{% block title %}{% endblock %}
 		</title>
 		<!-- Feuille de style-->
-		<link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> {% block stylesheets %}{% endblock %}
 
+		<link rel="stylesheet" href="{{asset('assets/css/app.css')}}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/> 
+		{% block stylesheets %}{% endblock %}
+		
 		</head>
 		<body>
 
-			
 
 			{% include "partials/nav.html.twig" %}
 
 			<div class="main">
 				{% include "partials/barhaut.html.twig" %}
 				{% block content %}
-				{% for message in app.flashes('success') %}
+					{% for message in app.flashes('success') %}
 
-				<div class="alert alert-success col-8 mx-auto text-center my-4 d-none" id="alertMessage">
-					{{message}}
-				</div>
-				
+						<div class="alert alert-success col-8 mx-auto text-center my-4 d-none" id="alertMessage">
+							{{message}}
+						</div>
 
-			{% endfor %}
-				
+
+					{% endfor %}
+
 				{% endblock %}
 			</div>
 
