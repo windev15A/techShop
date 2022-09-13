@@ -186,7 +186,6 @@ champDistance.addEventListener("change", function () {
 
 // Ajouter l evenement KEYUp au champ de saisie
 inputSearch.addEventListener("keyup", function (event) {
-    console.log(event.target.value);
     if (event.target.value.length > 0) {
         fetch("/boutique/search", {
             method: "post", 

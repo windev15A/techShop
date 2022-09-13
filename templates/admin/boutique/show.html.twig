@@ -1,6 +1,6 @@
 {% extends 'admin/base.html.twig' %}
 
-{% block title %}Nouvelle boutique
+{% block title %}Editer une boutique
 {% endblock %}
 
 {% block stylesheets %}
@@ -12,14 +12,14 @@
 
 
 	<div class="head_main">
-		<h1>Création d'une nouvelle boutique</h1>
+		<h1>Editer une boutique</h1>
 	</div>
 
 	<div class="details">
 		<div class="recentOrders">
 
 			<div class="cardHeader">
-				<h2>Nouvelle boutique</h2>
+				<h2>Modifier boutique</h2>
 				<a href="{{path('app_admin_boutique')}}">
 					<i class="fa fa-close fa-2x" style="color:gray"></i>
 				</a>
@@ -27,18 +27,18 @@
 
 			<div>
 
-				<form action="{{ path('app_store_boutique')}}" method="post" class="border rounded p-3 ">
+				<form action="{{ path('app_edit_boutique', {'id': boutique.id})}}" method="post" class="border rounded p-3 ">
 
 					<div class="form-group">
 						<label class="fw-bold">Nom</label>
-						<input type="text" name="nom" class="form-control" placeholder="Nom du boutique" aria-describedby="helpId">
+						<input type="text" name="nom" class="form-control" placeholder="Nom du boutique" value="{{boutique.nom}}">
 
 					</div>
 					<div class="form-group">
 						<div class="d-flex justify-content-between align-items-center position-relative my-2">
 							<div class="col-12 mt-2">
 								<label class="fw-bold">Adresse</label>
-								<input type="text" name="adresse" id="champ-ville" class="form-control" placeholder="Adresse de la boutique" aria-describedby="helpId">
+								<input type="text" name="adresse" id="champ-ville" class="form-control" placeholder="Adresse de la boutique" value="{{boutique.adresse}}">
 
 								<select multiple class="form-control" id="selectVille" style="display: none;" onchange="getLatLon(this.options[selectedIndex])"></select>
 							</div>
@@ -48,11 +48,11 @@
 					<div class="d-flex justify-content-between mt-3">
 						<div class="form-group col-5">
 							<label class="fw-bold">Longitude</label>
-							<input type="text" name="longitude" id="long" class="form-control" placeholder="Longitude du boutique" aria-describedby="helpId">
+							<input type="text" name="longitude" id="long" class="form-control" placeholder="Longitude du boutique" value="{{boutique.longitude}}">
 						</div>
 						<div class="form-group col-5">
 							<label class="fw-bold">Latitude</label>
-							<input type="text" name="latitude" id="lat" class="form-control" placeholder="Latitude du boutique" aria-describedby="helpId">
+							<input type="text" name="latitude" id="lat" class="form-control" placeholder="Latitude du boutique" value="{{boutique.latitude}}">
 						</div>
 					</div>
 
@@ -62,7 +62,6 @@
 				</form>
 
 			</div>
-
 
 			<div class="recentCustomers"></div>
 		</div>

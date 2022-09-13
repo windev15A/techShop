@@ -10,6 +10,7 @@ body {
   overflow-x: hidden;
 }
 .dialogue_flash {
+  display: none;
   text-align: center;
   padding: 17px;
   background: rgb(209, 255, 140);
@@ -417,6 +418,12 @@ body {
 .btn_save:hover {
   background-color: #4caf50; /* Green */
   color: white;
+}
+
+.fa-street-view {
+  position: absolute;
+  right: 36px;
+  top: 195px;
 }
 
 
