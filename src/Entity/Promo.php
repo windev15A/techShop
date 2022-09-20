@@ -36,6 +36,9 @@ class Promo
     #[Assert\Positive]
     private $tauxPromo;
 
+    #[ORM\Column(type: 'string', nullable:true)]
+    private $state;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -97,6 +100,18 @@ class Promo
     public function setTauxPromo(int $tauxPromo): self
     {
         $this->tauxPromo = $tauxPromo;
+
+        return $this;
+    }
+
+    public function getState(): ?string
+    {
+        return $this->state;
+    }
+
+    public function setState(string $state): self
+    {
+        $this->state = $state;
 
         return $this;
     }

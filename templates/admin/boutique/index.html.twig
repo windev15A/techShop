@@ -86,25 +86,7 @@
 			<div class="cardHeader">
 				<h2>Statistiques</h2>
 			</div>
-			{# <table>
-				<tbody>
-				{% for boutique in boutiques %}
-					
-					<tr>
-						<td width="60px">
-							<div class="imgBx">
-								<img src="{{asset('assets/images/user.png')}}" alt="" srcset=""/>
-							</div>
-						</td>
-						<td>
-							<h4>{{boutique.libelle}}<br/><span>Total produits : {{boutique.products | length}}</span>
-							</h4>
-						</td>
-					</tr>
-				{% endfor %}
-					
-				</tbody>
-			</table> #}
+			<h4>Nombre total des boutiques : {{boutiques | length}}</h4>
 		</div>
 	</div>
 {% endblock %}

@@ -425,6 +425,14 @@ body {
   right: 36px;
   top: 195px;
 }
+#promo_state{
+  display: flex;
+  justify-content: space-around;
+  font-size: 19px;
+}
+.div_state{
+  margin-top: 10px;
+}
 
 
 /* Responsive*/

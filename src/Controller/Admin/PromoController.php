@@ -60,9 +60,8 @@ class PromoController extends AbstractController
 
         $promo = new promo();
         $formpromo = $this->createForm(promoType::class);
-
+        
         $formpromo->handleRequest($request);
-
         if ($formpromo->isSubmitted() && $formpromo->isValid()) {
 
             $promo = $formpromo->getData();
@@ -110,7 +109,8 @@ class PromoController extends AbstractController
         }
 
         return $this->render('admin/promo/update.html.twig', [
-            'form' => $formpromo->createView()
+            'form' => $formpromo->createView(),
+            'promo' => $promo
         ]);
     }
 

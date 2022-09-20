@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\HistoireCommande;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Id;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -63,4 +65,19 @@ class HistoireCommandeRepository extends ServiceEntityRepository
 //            ->getOneOrNullResult()
 //        ;
 //    }
+
+    public function getStatistique()
+    {
+
+        $em =  $this->getEntityManager()->getConnection();
+        $sql = "SELECT COUNT(id) AS nbOrder, SUM(montant) AS total
+        FROM histoire_commande";
+
+        $stm = $em->prepare($sql);
+        $results = $stm->executeQuery();
+        return $results->fetchAllAssociative();
+
+        
+    }
+
 }

@@ -9,7 +9,7 @@
 		<div class="card">
 			<div>
 				<div class="numbers">1042</div>
-				<div class="cardName">Daily Views</div>
+				<div class="cardName">Vus par jour</div>
 			</div>
 			<div class="iconBox">
 				<i class="fa fa-eye" aria-hidden="true"></i>
@@ -17,8 +17,8 @@
 		</div>
 		<div class="card">
 			<div>
-				<div class="numbers">80</div>
-				<div class="cardName">Sales</div>
+				<div class="numbers">{{nbOrder}}</div>
+				<div class="cardName">Commandes</div>
 			</div>
 			<div class="iconBox">
 				<i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -27,7 +27,7 @@
 		<div class="card">
 			<div>
 				<div class="numbers">208</div>
-				<div class="cardName">Comments</div>
+				<div class="cardName">Commentaires</div>
 			</div>
 			<div class="iconBox">
 				<i class="fa fa-comment" aria-hidden="true"></i>
@@ -35,18 +35,18 @@
 		</div>
 		<div class="card">
 			<div>
-				<div class="numbers">$6042</div>
-				<div class="cardName">Earning</div>
+				<div class="numbers">{{ total | number_format(2, '€') }} </div>
+				<div class="cardName">Chiffre d'affaire</div>
 			</div>
 			<div class="iconBox">
-				<i class="fa fa-usd" aria-hidden="true"></i>
+				<i class="fa fa-eur" aria-hidden="true"></i>
 			</div>
 		</div>
 	</div>
 	<div class="details">
 		<div class="recentOrders">
 			<div class="cardHeader">
-				<h2>Recent orders</h2>
+				<h2>Dernières commandes</h2>
 				<a href="#" class="btn">View all</a>
 			</div>
 			<table>
@@ -65,7 +65,7 @@
 						<td>$1200</td>
 						<td>Paid</td>
 						<td>
-							<span class="status delivered">Delivered</span>
+							<span class="status delivered">Livré</span>
 						</td>
 					</tr>
 					<tr>
@@ -73,7 +73,7 @@
 						<td>$120</td>
 						<td>Due</td>
 						<td>
-							<span class="status delivered">Pending</span>
+							<span class="status delivered">En attente</span>
 						</td>
 					</tr>
 					<tr>
@@ -81,7 +81,7 @@
 						<td>$650</td>
 						<td>Paid</td>
 						<td>
-							<span class="status return">Return</span>
+							<span class="status return">Retour</span>
 						</td>
 					</tr>
 					<tr>
@@ -89,7 +89,7 @@
 						<td>$6000</td>
 						<td>Due</td>
 						<td>
-							<span class="status inprogress">In progress</span>
+							<span class="status inprogress">En cours</span>
 						</td>
 					</tr>
 					<tr>
@@ -97,7 +97,7 @@
 						<td>$1200</td>
 						<td>Paid</td>
 						<td>
-							<span class="status delivered">Delivered</span>
+							<span class="status delivered">Livré</span>
 						</td>
 					</tr>
 					<tr>
@@ -105,7 +105,7 @@
 						<td>$120</td>
 						<td>Due</td>
 						<td>
-							<span class="status pending">Pending</span>
+							<span class="status pending">En attente</span>
 						</td>
 					</tr>
 					<tr>
@@ -113,7 +113,7 @@
 						<td>$650</td>
 						<td>Paid</td>
 						<td>
-							<span class="status return">Return</span>
+							<span class="status return">Retour</span>
 						</td>
 					</tr>
 					<tr>
@@ -121,7 +121,7 @@
 						<td>$6000</td>
 						<td>Due</td>
 						<td>
-							<span class="status inprogress">In progress</span>
+							<span class="status inprogress">En cours</span>
 						</td>
 					</tr>
 					<tr>
@@ -129,7 +129,7 @@
 						<td>$1200</td>
 						<td>Paid</td>
 						<td>
-							<span class="status delivered">Delivered</span>
+							<span class="status delivered">Livré</span>
 						</td>
 					</tr>
 					<tr>
@@ -137,7 +137,7 @@
 						<td>$120</td>
 						<td>Due</td>
 						<td>
-							<span class="status pending">Pending</span>
+							<span class="status pending">En attente</span>
 						</td>
 					</tr>
 					<tr>
@@ -145,7 +145,7 @@
 						<td>$650</td>
 						<td>Paid</td>
 						<td>
-							<span class="status return">Return</span>
+							<span class="status return">Retour</span>
 						</td>
 					</tr>
 					<tr>
@@ -153,7 +153,7 @@
 						<td>$6000</td>
 						<td>Due</td>
 						<td>
-							<span class="status inprogress">In progress</span>
+							<span class="status inprogress">En cours</span>
 						</td>
 					</tr>
 				</tbody>
@@ -161,7 +161,7 @@
 		</div>
 		<div class="recentCustomers">
 			<div class="cardHeader">
-				<h2>Recent customers</h2>
+				<h2>Clients récents</h2>
 			</div>
 			<table>
 				<tbody>

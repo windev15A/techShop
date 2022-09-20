@@ -25,6 +25,7 @@ class PromoRepository extends ServiceEntityRepository
 
     public function add(Promo $entity, bool $flush = false): void
     {
+        
         $this->getEntityManager()->persist($entity);
 
         if ($flush) {

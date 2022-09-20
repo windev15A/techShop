@@ -27,17 +27,20 @@
 
 			<div>
 				{{form_start(form)}}
-					{{ form_row(form.codePromo)}}
-					{{ form_row(form.tauxPromo)}}
-					<div class="div_date">
-						{{form_row(form.date_debut)}}
-						{{form_row(form.date_fin)}}
-					</div>
-					<input type="submit" class="btn" value="Valider">
+				{{ form_row(form.codePromo)}}
+				{{ form_row(form.tauxPromo)}}
+				<div class="div_date">
+					{{form_row(form.date_debut)}}
+					{{form_row(form.date_fin)}}
+				</div>
+				<div class="div_state">
+					{{form_row(form.state)}}
+				</div>
+				
+				<input type="submit" class="btn" value="Valider">
 				{{form_end(form)}}
 			</div>
 
-			<h2formule</h2></div>
 			<div class="recentCustomers"></div>
 		</div>
 	{% endblock %}

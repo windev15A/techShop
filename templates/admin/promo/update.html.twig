@@ -19,20 +19,25 @@
 
 			<div class="cardHeader">
 				<h2>Modifier une promotion</h2>
-				<a href="{{path('app_categories')}}">
+				<a href="{{path('app_promos')}}">
 					<i class="fa fa-close fa-2x" style="color:gray"></i>
 				</a>
 			</div>
 
 			<div>
 				{{form_start(form)}}
-					{{ form_row(form.codePromo)}}
-					{{ form_row(form.tauxPromo)}}
-					<div class="div_date">
-						{{form_row(form.date_debut)}}
-						{{form_row(form.date_fin)}}
-					</div>
-					<input type="submit" class="btn" value="Valider">
+				{{ form_row(form.codePromo)}}
+				{{ form_row(form.tauxPromo)}}
+				<div class="div_date">
+					{{form_row(form.date_debut)}}
+					{{form_row(form.date_fin)}}
+				</div>
+				<div class="div_state">
+					{{form_row(form.state)}}
+				</div>
+
+				
+				<input type="submit" class="btn" value="Valider">
 				{{form_end(form)}}
 			</div>
 

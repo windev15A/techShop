@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Promo;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
@@ -27,8 +28,16 @@ class PromoType extends AbstractType
             ] )
             ->add('date_fin', DateType::class, [
                 'required' => false,
-                 'widget' => 'single_text',
-
+                 'widget' => 'single_text'
+            ])
+            ->add('state', ChoiceType::class,[
+                'label' => 'Etat',
+                'choices' => [
+                    'Valide' => 'Valide',
+                    'Périmé' => 'Périmé'
+                ],
+                'expanded' => true,
+                'multiple' => false
             ])
         ;
     }

@@ -53,7 +53,7 @@ class SearchProductController extends AbstractController
         $products = $paginator->paginate(
             $this->repo->recherche($filter),
             $request->query->getInt('page', 1),
-            5);
+            10);
         return $this->render('search.html.twig', [
             'products' => $products,
             'form' => $form->createView()

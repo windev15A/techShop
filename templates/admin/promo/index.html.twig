@@ -10,12 +10,18 @@
 		<h1>Liste des codes promos</h1>
 		{% for message in app.flashes('success') %}
 
-
 		<div class="dialogue_flash" id="alertMessage">
 			{{message}}
 		</div>
-		
 
+		{% block javascripts %}
+				<script>
+					var div1 = document.getElementById('alertMessage');
+
+					showMessage(div1.innerHTML)
+				</script>
+
+			{% endblock %}
 	{% endfor %}
 
 	</div>

@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use DateTime;
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\HistoireCommandeRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -177,4 +178,8 @@ class ProductController extends AbstractController
         $this->addFlash('success', "Le produit n° $idProduit a été supprimer avec avec succès");
         return $this->redirectToRoute('app_products');
     }
+
+
+
+    
 }
