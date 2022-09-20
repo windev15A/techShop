@@ -108,5 +108,24 @@ class MainController extends AbstractController
     {
         return $this->render('bundles/TwigBundle/Exception/error500.html.twig');
     }
+
+
+    
+    /**
+     * index Affichage du home page
+     *
+     * @return Response
+     */
+    #[Route('/home2', name: 'app_main2')]    
+    public function index_home(): Response
+    {
+        return $this->render('home2.html.twig',
+        [
+            "products" => $this->repoProducts->findAll(),
+            'newProduct' => $this->repoProducts->getNewProduct(),
+            "categories" => $this->repoCategory->findAll(),
+            "fabricants" => $this->repoFabricant->findAll()
+        ]);
+    }
    
 }

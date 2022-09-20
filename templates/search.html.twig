@@ -10,7 +10,7 @@
 	<div class="container-fluid p-2 ">
 
 		<div class="row d-md-flex justify-content-between d-sm-block m-auto">
-			<div class="shadow p-3 mb-5 bg-white rounded mr-2 col-md-3 col-sm-12" >
+			<div class="shadow p-3 mb-5 bg-white rounded mr-2 col-md-3 col-sm-12">
 				<div class="bg-dark px-2 rounded">
 					<h1 class="text-white text-center ">Recherche</h1>
 				</div>
@@ -28,28 +28,27 @@
 				<button type="submit" class="btn btn-primary w-100 ">Valider</button>
 				{{ form_end(form) }}
 			</div>
-			<div class="shadow p-3 mb-5 bg-white rounded col-md-8 col-sm-12" >
+			<div class="shadow p-3 mb-5 bg-white rounded col-md-8 col-sm-12">
 				<h4>{{products | length }}
 					résultats ont été trouvés.
 				</h4>
 
 				<div class="mt-3">
-
 					<div class="row g-2">
 						{% for product in products %}
 							<div class="card_product">
+								<h3 class="py-3">{{product.libelle}}</h3>
 								{% if product.image %}
-
-									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" height="140px">
+									<img src="{{asset('assets/images/produits/'~ product.image)}}" alt="image produit" style="height:140px; width: 190px;" class="rounded py-3">
 								{% else %}
 									<img src="{{asset('assets/images/produits/default.png')}}" alt="image produit" height="140px">
 
 								{% endif %}
-								<h3>{{product.libelle}}
-								</h3>
-								<h6>{{product.prix | number_format(2, '€') }}</h6>
 
-								<button class="add_card bg-dark">
+
+								<h6 class="py-3">{{product.prix | number_format(2, '€') }}</h6>
+
+								<button class="add_card bg-warning ">
 									<a href="{{path('app_show', {id : product.id})}}">
 										<i class="bi bi-eye" style="color: grey"></i>
 									</a>
@@ -60,13 +59,16 @@
 											<i class="bi bi-heart" style="color : white"></i>
 										{% endif %}
 									</a>
-									<a href="#">
+									<a href="{{path('panier_add', {id: product.id})}}">
 										<i class="bi bi-cart-plus" style="color: grey"></i>
 									</a>
 								</button>
 							</div>
 						{% endfor %}
 					</div>
+				</div>
+				<div class="navigation d-flex justify-content-center">
+					{{ knp_pagination_render(products) }}
 				</div>
 			</div>
 		</div>

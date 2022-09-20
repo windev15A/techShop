@@ -1,5 +1,6 @@
 body {
   background: rgba(255, 253, 253, 0.2) !important;
+  font-family: monospace, "sans serif" !important;
 }
 
 nav input[type="checkbox"] {

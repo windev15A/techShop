@@ -9,6 +9,7 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Mime\Address;
 use Throwable;
 
 class ContactController extends AbstractController
@@ -38,20 +39,20 @@ class ContactController extends AbstractController
     public function sendEmail(MailerInterface $mailer, Request $request)
     {
         try {
-            //code...
             $email = (new Email())
-                ->from($request->get('email'))
+                ->from(new Address($request->get('email')))
                 ->to('admin@admin.fr')
-               
+
                 ->subject($request->get('object'))
-                ->text($request->get('message'))
-                ;
+                ->text($request->get('message'));
 
             $mailer->send($email);
             $this->addFlash('success', 'Email envoyé avec success');
-            return $this->render('home.html.twig');
+            return $this->render('contact.html.twig');
         } catch (Throwable $th) {
-            dd($th->getMessage());
+            $this->addFlash('error', "Impossible d'envoyer l'email");
+            return $this->render('contact.html.twig');
+            
         }
     }
 }

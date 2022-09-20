@@ -12,7 +12,6 @@
 	<div class="container">
 		<div class="shadow p-3 mb-5 bg-body rounded">
 			<h1>Paiement</h1>
-			<p class="titre">PAYMENT DETAILS</p>
 			<div class="d-md-flex justify-content-between">
 				<div class="d-flex flex-column align-items-center justify-content-center">
 					<img src="{{asset('assets/images/logo-stripe.png')}}" alt="stripe logo" class="w-md-100 ">
@@ -27,6 +26,10 @@
 					<div class="form-group my-2">
 						<label for="name">Nom Prénom</label>
 						<input type="text" value="{{app.user.nom ~" "~ app.user.prenom}}" class="form-control" name="name" id="name" placeholder="Nom d'utilisateur">
+					</div>
+					<div class="form-group my-2">
+						<label for="name">Email</label>
+						<input type="text" value="{{app.user.email}}" class="form-control" name="name" id="name" placeholder="Nom d'utilisateur">
 					</div>
 					<div id="card-element" class="input_strip mt-3"></div>
 
