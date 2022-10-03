@@ -16,8 +16,11 @@
 		{% block javascripts %}
 				<script>
 					var div1 = document.getElementById('alertMessage');
-
 					showMessage(div1.innerHTML)
+
+					function deletad(id){
+						deleteEntity(`product/delete/${id}`)
+					}
 				</script>
 
 			{% endblock %}
@@ -70,9 +73,9 @@
 										<a href="{{path('app_update_product', {'id': product.id})}}" class="btn btn_edit">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 										</a>
-										<a href="{{path('app_delete_product', {'id': product.id})}}" class="btn btn_delete">
+										<button onclick="deletad({{product.id}})" id="btn_delete" class="btn btn_delete">
 											<i class="fa fa-trash" aria-hidden="true"></i>
-										</a>
+										</button>
 									</div>
 								</td>
 							</tr>

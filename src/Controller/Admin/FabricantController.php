@@ -12,6 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
@@ -167,7 +168,7 @@ class FabricantController extends AbstractController
         $manager->flush();
 
 
-        $this->addFlash('success', "La categorie  $idfabricant a été supprimer avec avec succès");
-        return $this->redirectToRoute('app_fabricants');
+        return new JsonResponse("Le fabricant  $idfabricant a été supprimer avec avec succès", 200);
+        
     }
 }

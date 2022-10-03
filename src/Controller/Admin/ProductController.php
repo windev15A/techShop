@@ -5,13 +5,14 @@ namespace App\Controller\Admin;
 use DateTime;
 use App\Entity\Product;
 use App\Form\ProductType;
-use App\Repository\HistoireCommandeRepository;
 use App\Repository\ProductRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
+use App\Repository\HistoireCommandeRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
@@ -163,6 +164,7 @@ class ProductController extends AbstractController
     #[Route('/product/delete/{id}', name: 'app_delete_product')]
     public function deleteProduct(Product $produit, EntityManagerInterface $manager)
     {
+        
         $idProduit = $produit->getId();
         $image_produit = $produit->getImage();
         if ($image_produit) {
@@ -174,9 +176,8 @@ class ProductController extends AbstractController
         $manager->remove($produit);
         $manager->flush();
 
+        return new JsonResponse("Le produit n° $idProduit a été supprimer avec avec succès", 200);
 
-        $this->addFlash('success', "Le produit n° $idProduit a été supprimer avec avec succès");
-        return $this->redirectToRoute('app_products');
     }
 
 

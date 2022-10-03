@@ -12,6 +12,7 @@ use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/admin')]
@@ -159,7 +160,7 @@ class CategoryController extends AbstractController
      * @param  EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('/category/delete/{id}', name: 'app_delete_category')]
+    #[Route('/categorie/delete/{id}', name: 'app_delete_category')]
     public function deleteCategory(Category $category, EntityManagerInterface $manager): Response
     {
         $idProduit = $category->getId();
@@ -173,8 +174,7 @@ class CategoryController extends AbstractController
         $manager->remove($category);
         $manager->flush();
 
-
-        $this->addFlash('success', "La catégorie n° $idProduit a été supprimer avec avec succès");
-        return $this->redirectToRoute('app_categories');
+        return new JsonResponse("La catégorie n° $idProduit a été supprimer avec avec succès", 200);
+        
     }
 }

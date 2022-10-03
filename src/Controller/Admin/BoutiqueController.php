@@ -2,17 +2,20 @@
 
 namespace App\Controller\Admin;
 
+use DateTime;
 use App\Entity\Boutique;
 use App\Repository\BoutiqueRepository;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+
+#[Route('/admin')]
 class BoutiqueController extends AbstractController
 {
 
@@ -37,7 +40,7 @@ class BoutiqueController extends AbstractController
      * @return Response
      */
 
-    #[Route('/admin/boutique', name: 'app_admin_boutique')]
+    #[Route('/boutiques', name: 'app_admin_boutique')]
     public function index(BoutiqueRepository $repo, Request $request, PaginatorInterface $paginator): Response
     {
 
@@ -78,7 +81,6 @@ class BoutiqueController extends AbstractController
     public function store(Request $request)
     {
         try {
-            
             $boutique = new Boutique();
             $boutique->setNom($request->request->get("nom"));
             $boutique->setAdresse($request->request->get("adresse"));
@@ -88,7 +90,6 @@ class BoutiqueController extends AbstractController
             $this->em->persist($boutique);
             $this->em->flush();
             $this->addFlash('success', 'La boutique ' . $boutique->getNom() . ' a été ajouter avec succès');
-            
             return $this->redirectToRoute('app_admin_boutique');
         } catch (\Throwable $th) {
             dd($th->getMessage());
@@ -133,15 +134,23 @@ class BoutiqueController extends AbstractController
         }
     }
 
-    #[Route('boutique/delete/{id}', name:'app_delete_boutique')]
-    public function delete(Boutique $boutique)
+    /**
+     * delete Supprimer une boutique
+     *
+     * @param  Boutique $boutique
+     * @return JsonResponse
+     */
+    #[Route('/boutique/delete/{id}', name:'app_delete_boutique')]    
+    public function delete(Boutique $boutique): JsonResponse
     {
-
-        $this->em->remove($boutique);
-        $this->em->flush();
-
-        $this->addFlash('success', 'La boutique  a été supprimer avec succès');
+        try {
+            //code...
+            $this->em->remove($boutique);
+            $this->em->flush();
             
-        return $this->redirectToRoute('app_admin_boutique');
+            return new JsonResponse("la boutique a été supprimer avec avec succès", 200);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
     }
 }

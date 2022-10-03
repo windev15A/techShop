@@ -250,6 +250,10 @@ body {
 }
 .btn_delete {
   background: #f84904;
+  border: 0;
+}
+.btn_delete:hover{
+  cursor: pointer;
 }
 
 .details table {
@@ -418,6 +422,10 @@ body {
 .btn_save:hover {
   background-color: #4caf50; /* Green */
   color: white;
+}
+
+.txt_error{
+  color: red;
 }
 
 .fa-street-view {

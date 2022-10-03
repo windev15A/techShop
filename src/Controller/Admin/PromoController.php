@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/admin')]
 
@@ -126,12 +127,14 @@ class PromoController extends AbstractController
     #[Route('/promo/delete/{id}', name: 'app_delete_promo')]
     public function deletepromo(Promo $promo, EntityManagerInterface $manager)
     {
+
+        
         $idPromo = $promo->getCodePromo();
         $manager->remove($promo);
         $manager->flush();
-
-
-        $this->addFlash('success', "Le code promo n° $idPromo a été supprimer avec succès");
-        return $this->redirectToRoute('app_promos');
+        
+        return new JsonResponse("Le code promo n° $idPromo a été supprimer avec succès", 200);
+        
+        
     }
 }

@@ -27,3 +27,46 @@ function showMessage(message)
     })
   
 }
+
+function deleteEntity(myUrl)
+{
+  var url = myUrl
+  var urlSplit = url.split('/');
+  var redirect = `${urlSplit[0]}s/`
+  
+  console.log("clicked");
+  Swal.fire({
+    title: 'Voulez-vous Vraiment ',
+    text: "supprimer cette enregustrement",
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Yes, Supprimer'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log(url);
+      $.ajax({
+        url : url,
+        method: "GET",
+        dataType : 'json'
+      })
+      .done(function(response){
+        Swal.fire(
+          'Supprimer!',
+          JSON.stringify(response),
+          'success'
+        )
+        window.location.href = redirect;
+      })
+      .fail(function(error){
+        Swal.fire(
+          'Erreur!',
+          'Impossible de supprimer cette enregistrement',
+          'error'
+        )
+        console.error(JSON.stringify(error));
+      })
+    }
+  })
+}

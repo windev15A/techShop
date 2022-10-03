@@ -10,19 +10,12 @@
 		<h1>Liste des codes promos</h1>
 		{% for message in app.flashes('success') %}
 
-		<div class="dialogue_flash" id="alertMessage">
-			{{message}}
-		</div>
+			<div class="dialogue_flash" id="alertMessage">
+				{{message}}
+			</div>
 
-		{% block javascripts %}
-				<script>
-					var div1 = document.getElementById('alertMessage');
 
-					showMessage(div1.innerHTML)
-				</script>
-
-			{% endblock %}
-	{% endfor %}
+		{% endfor %}
 
 	</div>
 
@@ -58,9 +51,10 @@
 
 							<tr>
 								<td>{{promo.id}}</td>
-								
+
 								<td>{{promo.codePromo}}</td>
-								<td>{{promo.tauxPromo}} %</td>
+								<td>{{promo.tauxPromo}}
+									%</td>
 								<td>{{promo.dateDebut | date("d/m/Y", "Europe/Paris") }}</td>
 								<td>{{promo.dateFin | date("d/m/Y", "Europe/Paris") }}</td>
 								<td>{{promo.createdAt | date("d/m/Y", "Europe/Paris") }}</td>
@@ -68,10 +62,10 @@
 									<div style="display: flex;justify-content: space-around;">
 										<a href="{{path('app_update_promo', {'id': promo.id})}}" class="btn btn_edit">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
-										</a>
-										<a href="{{path('app_delete_promo', {'id': promo.id})}}" class="btn btn_delete">
+										</a>																									
+										<button onclick="deletad({{promo.id}})" id="btn_delete" class="btn btn_delete">
 											<i class="fa fa-trash" aria-hidden="true"></i>
-										</a>
+										</button>
 									</div>
 								</td>
 							</tr>
@@ -79,29 +73,42 @@
 
 					</tbody>
 				</table>
+
+				
 				{{ knp_pagination_render(promos) }}
 			{% endif %}
 		</div>
 		{# <div class="recentCustomers">
-			<div class="cardHeader">
-				<h2>Statistiques</h2>
-			</div>
-			<table>
-				<tbody>
-				{% for promo in promos %}
-					
-					<tr>
-						<td width="60px">
-						</td>
-						<td>
-							<h4>{{promo.codePromo}}<br/><span>Total produits : {{promo | length}}</span>
-							</h4>
-						</td>
-					</tr>
-				{% endfor %}
-					
-				</tbody>
-			</table>
-		</div> #}
+							<div class="cardHeader">
+								<h2>Statistiques</h2>
+							</div>
+							<table>
+								<tbody>
+								{% for promo in promos %}
+									
+									<tr>
+										<td width="60px">
+										</td>
+										<td>
+											<h4>{{promo.codePromo}}<br/><span>Total produits : {{promo | length}}</span>
+											</h4>
+										</td>
+									</tr>
+								{% endfor %}
+									
+								</tbody>
+							</table>
+						</div> #}
 	</div>
+{% endblock %}
+{% block javascripts %}
+	<script>
+
+		var div1 = document.getElementById('alertMessage');
+		showMessage(div1.innerHTML)
+		function deletad(id){
+			deleteEntity(`promo/delete/${id}`)
+		}
+	</script>
+
 {% endblock %}

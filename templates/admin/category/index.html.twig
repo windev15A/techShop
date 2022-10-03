@@ -17,8 +17,10 @@
 		{% block javascripts %}
 				<script>
 					var div1 = document.getElementById('alertMessage');
-
 					showMessage(div1.innerHTML)
+					function deletad(id){
+						deleteEntity(`categorie/delete/${id}`)
+					}
 				</script>
 
 			{% endblock %}
@@ -56,23 +58,23 @@
 					</thead>
 					<tbody>
 
-						{% for category in categories %}
+						{% for categorie in categories %}
 
 							<tr>
-								<td>{{category.id}}</td>
+								<td>{{categorie.id}}</td>
 								<td>
-									<img src="{{asset("assets/images/categories/" ~ category.image)}}" alt="{{category.libelle}}" width="120px">
+									<img src="{{asset("assets/images/categories/" ~ categorie.image)}}" alt="{{categorie.libelle}}" width="120px">
 								</td>
-								<td>{{category.libelle}}</td>
-								<td>{{category.createdAt | date("d/m/Y", "Europe/Paris") }}</td>
+								<td>{{categorie.libelle}}</td>
+								<td>{{categorie.createdAt | date("d/m/Y", "Europe/Paris") }}</td>
 								<td style="display: table-cell;">
 									<div style="display: flex;justify-content: space-around;">
-										<a href="{{path('app_update_category', {'id': category.id})}}" class="btn btn_edit">
+										<a href="{{path('app_update_category', {'id': categorie.id})}}" class="btn btn_edit">
 											<i class="fa fa-pencil" aria-hidden="true"></i>
 										</a>
-										<a href="{{path('app_delete_category', {'id': category.id})}}" class="btn btn_delete">
+										<button onclick="deletad({{categorie.id}})" id="btn_delete" class="btn btn_delete">
 											<i class="fa fa-trash" aria-hidden="true"></i>
-										</a>
+										</button>
 									</div>
 								</td>
 							</tr>
