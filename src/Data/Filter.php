@@ -46,7 +46,7 @@ class Filter
      *
      * @var int
      */
-    public ?int $max = 0;
+    public ?int $max = 5000;
 
 
     /**
@@ -54,7 +54,7 @@ class Filter
      *
      * @var mixed
      */
-    public mixed $order =null;
+    public int $order = 1;
 
     public function __sleep()
     {

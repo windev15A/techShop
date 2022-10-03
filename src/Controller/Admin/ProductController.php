@@ -84,7 +84,7 @@ class ProductController extends AbstractController
             $manager->flush();
 
 
-            $this->addFlash('success', 'Le produit n° ' . $produit->getLibelle() . ' a été ajouter avec succès');
+            $this->addFlash('success', 'Le produit ' . $produit->getLibelle() . ' a été ajouter avec succès');
 
             return $this->redirectToRoute('app_products');
         }
@@ -142,7 +142,7 @@ class ProductController extends AbstractController
             $manager->persist($produit);
             $manager->flush();
 
-            $this->addFlash('success', 'Le produit n° ' . $produit->getLibelle() . ' a été modifié avec succès');
+            $this->addFlash('success', 'Le produit ' . $produit->getLibelle() . ' a été modifié avec succès');
             return $this->redirectToRoute('app_products');
         }
 

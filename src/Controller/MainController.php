@@ -93,18 +93,27 @@ class MainController extends AbstractController
      * @return Response
      */
     #[Route('detail/{id}', name:'app_show')]    
-    public function showProduct(Product $product){
+    public function showProduct(int $id){
 
-       return $this->render('showProduit.html.twig', [
-        'product'  => $product
-       ]);
+        $product = $this->repoProducts->find($id);
+        if(!$product){
+            return $this->error404();
+        }else{
+            return $this->render('showProduit.html.twig', [
+                'product'  => $product
+            ]);
+        }
     }
 
 
+    #[Route('/404', name: 'app_error')]    
+    public function error404(): Response
+    {
+        return $this->render('bundles/TwigBundle/Exception/error404.html.twig');
+    }
 
-
-    #[Route('/error', name: 'app_error')]    
-    public function error(): Response
+    #[Route('/500', name: 'app_error')]    
+    public function error500(): Response
     {
         return $this->render('bundles/TwigBundle/Exception/error500.html.twig');
     }
