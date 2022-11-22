@@ -52,43 +52,6 @@ function displayPopup(boutique) {
             `;
 }
 
-//--------------------------------------------------------------------------------------------
-/**
- * Noter les boutiques
- *
- * @param {icon} star
- */
-function rating(star, id) {
-    note = star.dataset.note;
-    for (let i = 1; i <= 5; i++) {
-        var icon = document.getElementById(`star${i}`);
-        if (i <= note) {
-            icon.classList.remove("bi-star");
-            icon.classList.add("bi-star-fill");
-        } else {
-            icon.classList.add("bi-star");
-            icon.classList.remove("bi-star-fill");
-        }
-    }
-
-    fetch(`/rating/${id}`, {
-        method: "PUT",
-        body: JSON.stringify({
-            note: note,
-        }),
-        headers: {
-            "Content-Type": "application/json",
-            "X-CSRF-Token": csrfToken,
-        },
-    })
-        .then(function (response) {
-            console.log(response);
-            // window.location.href = "/";
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-}
 
 //--------------------------------------------------------------------------------------------
 

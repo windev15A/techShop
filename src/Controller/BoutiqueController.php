@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\BoutiqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,7 +27,12 @@ class BoutiqueController extends AbstractController
 
 
 
-    #[Route('/boutique', name: 'app_boutique')]
+    /**
+     * index
+     *
+     * @return Response
+     */
+    #[Route('/boutique', name: 'app_boutique')]    
     public function index(): Response
     {
         return $this->render('boutique/index.html.twig', [
@@ -36,7 +42,7 @@ class BoutiqueController extends AbstractController
 
 
     /**
-     * searchBoutique
+     * searchBoutique 
      *
      * @param  Request $request
      * @return void
@@ -58,11 +64,11 @@ class BoutiqueController extends AbstractController
      * searchProxyBoutiques : boutique de proximité 
      *
      * @param  Request $request
-     * @return void
+     * @return JsonResponse
      */
 
     #[Route('serachboutiques', name: 'app_boutique_poxy')]    
-    public function searchProxyBoutiques(Request $request)
+    public function searchProxyBoutiques(Request $request): JsonResponse
     {
         $data = json_decode($request->getContent());
         $boutique = $this->rep->find($data->id);

@@ -108,7 +108,7 @@ class ProductController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-    #[Route('product/update/{id}', name: 'app_update_product')]
+    #[Route('/product/update/{id}', name: 'app_update_product')]
     public function updateProduct(Product $produit, Request $request, EntityManagerInterface $manager): Response
     {
 
@@ -118,7 +118,7 @@ class ProductController extends AbstractController
         $formProduit->handleRequest($request);
 
         if ($formProduit->isSubmitted() && $formProduit->isValid()) {
-            
+
             $imageFile = $formProduit->get('image')->getData();
 
             if ($imageFile) {
@@ -158,10 +158,10 @@ class ProductController extends AbstractController
      *
      * @param  Product $produit
      * @param  EntityManagerInterface $manager
-     * @return Response
+     * @return JsonResponse
      */
     #[Route('/product/delete/{id}', name: 'app_delete_product')]
-    public function deleteProduct(Product $produit, EntityManagerInterface $manager)
+    public function deleteProduct(Product $produit, EntityManagerInterface $manager): JsonResponse
     {
         
         $idProduit = $produit->getId();
