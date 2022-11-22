@@ -45,14 +45,16 @@
 				</a>
 			</div>
 			<div class="col-md-6 col-sm-12 my-3 myMenu">
-				<a href="" class="link-dark text-decoration-none  d-flex align-items-center border">
-					<i class="bi bi-list-check px-4 border-end"></i>
-					<h4 class="px-3 text-uppercase"></h4>
-				</a>
+				<form action="{{path('delete_user', {id:app.user.id})}}" method="post">
+				<input type="hidden" name="token" value="{{ csrf_token('delete-user') }}"/>
+					<button type="submit" class="link-dark text-decoration-none d-flex align-items-center border bg-danger">
+						<i class="bi bi-list-check px-4 border-end"></i>
+						<h4 class="px-3 text-uppercase">Supprimer mon compte
+						</h4>
+					</button>
+				</form>
 			</div>
 
 		</div>
-
-
 	</div>
 {% endblock %}

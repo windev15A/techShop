@@ -94,7 +94,6 @@ class PaiementController extends AbstractController
 
         if (count($panier->getFullCart())) {
             try {
-                //code...
                 $MaCommande = $panier->getFullCart();
                 $comande = new HistoireCommande();
                 $comande->setProduits(serialize($MaCommande));

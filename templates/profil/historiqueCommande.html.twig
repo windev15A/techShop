@@ -7,7 +7,7 @@
 
 
 	<div class="container">
-		<h1>Historique de mes commande
+		<h1>Historique des commandes
 		</h1>
 		<div class="row ">
 			{% if commandes %}
@@ -48,7 +48,16 @@
 					</div>
 
 				{% endfor %}
+			{% else %}
+				<div class="text-center py-3" style="background: #CDF0EA">
+					<i class="bi bi-clock-history" style="font-size: 12rem;"></i>
+					<h2>Votre Historique est vide...</h2>
 
+					<p>Cliquer
+						<a href="{{path('app_main')}}">ICI</a>
+						pour continuer vos achats 
+					</p>
+				</div>
 
 			{% endif %}
 		</div>

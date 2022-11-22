@@ -9,6 +9,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 use App\Repository\HistoireCommandeRepository;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -30,7 +31,6 @@ class ProfilController extends AbstractController
     public function __construct(HistoireCommandeRepository $rep)
     {
         $this->repo =  $rep;
-
     }
 
 
@@ -85,7 +85,7 @@ class ProfilController extends AbstractController
     #[Route('historique', name: 'hitorique_commande')]
     public function historiqueCommande(): Response
     {
-        
+
         $commandes = $this->repo->findBy([
             'user' => $this->getUser()
         ]);
@@ -100,9 +100,36 @@ class ProfilController extends AbstractController
                 "contenus" => unserialize($produit->getProduits())
             ];
         }
-        
-        return $this->render('profil/historiqueCommande.html.twig',[
+
+        return $this->render('profil/historiqueCommande.html.twig', [
             "commandes" => $produits
         ]);
     }
+
+
+
+
+    
+    /**
+     * deleteUser Supprimer un compte utilisateur
+     *
+     * @param  mixed $request
+     * @param  mixed $user
+     * @param  mixed $userRepository
+     * @return Response
+     */
+    #[Route("delete/{id}",name:"delete_user")]    
+    public function deleteUser(Request $request, User $user, UserRepository $userRepository ): Response
+    {
+        if($this->isCsrfTokenValid('delete-user', $request->request->get('token'))){
+            $this->container->get('security.token_storage')->setToken(null);
+            $userRepository->remove($user, true);
+            $this->addFlash('success', 'Votre compte a été supprimer avec success');
+            return $this->redirectToRoute('app_main');
+        }else{
+            $this->addFlash('error', 'Impossible de supprimer ce compte');
+            return $this->redirectToRoute('app_main');
+        }
+    }
+
 }

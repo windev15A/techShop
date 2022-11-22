@@ -61,14 +61,14 @@ class WishlistController extends AbstractController
 
         $wishlist->addToWishlist($id);
 
-        $this->logger->info('Produit ajouté a la liste des souhaite');
+        $this->logger->info('Produit ajouté a la liste de souhaites');
         return $this->redirectToRoute('app_main');
     }
     
     
     
     /**
-     * delete
+     * Supprimer un elemenet de la liste de souhaites
      *
      * @param int $id
      * @param  Wishlist $wishlist
@@ -80,6 +80,7 @@ class WishlistController extends AbstractController
         $wishlist->deleteToWishlist($id);
 
         $this->addFlash('success', 'Le produit est retiré de la list de souhaits :(');
+        $this->logger->info('Produit retiré de la liste de souhaites');
 
         return $this->redirectToRoute('app_main');
     }
