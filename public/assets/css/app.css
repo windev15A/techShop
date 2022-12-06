@@ -252,7 +252,7 @@ body {
   background: #f84904;
   border: 0;
 }
-.btn_delete:hover{
+.btn_delete:hover {
   cursor: pointer;
 }
 
@@ -371,39 +371,45 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 10px;
+  list-style: none;
 }
 .pagination .current {
   color: #62c8f7;
   font-size: 21px;
 }
 
-.page{
+.page {
   border: 1px solid grey;
   border-radius: 5px;
   height: 35px;
   width: 35px;
   background: #0b0c0f;
-  
 }
-.page a{
-  text-decoration-line: none ;
+.page a {
+  text-decoration-line: none;
   color: rgb(255, 255, 255);
 }
 
-.first, .last, .previous, .next{
-    border: 1px solid grey;
-    border-radius: 5px;
-    height: 35px;
-    width: 35px;
-    background: #fc4113;  
+.first,
+.last,
+.previous,
+.next {
+  border: 1px solid grey;
+  border-radius: 5px;
+  height: 35px;
+  width: 35px;
+  background: #fc4113;
 }
 
-.first a, .last a, .previous a, .next a{
-  text-decoration-line: none ;
+.first a,
+.last a,
+.previous a,
+.next a {
+  text-decoration-line: none;
   color: rgb(255, 255, 255);
 }
 
-.invalid-feedback{
+.invalid-feedback {
   color: red;
 }
 
@@ -424,7 +430,7 @@ body {
   color: white;
 }
 
-.txt_error{
+.txt_error {
   color: red;
 }
 
@@ -433,15 +439,29 @@ body {
   right: 36px;
   top: 195px;
 }
-#promo_state{
+#promo_state {
   display: flex;
   justify-content: space-around;
   font-size: 19px;
 }
-.div_state{
+.div_state {
   margin-top: 10px;
 }
 
+.list_btn {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.btn_param {
+  padding: 10px;
+  margin-bottom: 15px;
+  font-size: 20px;
+  border-radius: 5px;
+  border: 0;
+  background: darkslategrey;
+  color: white;
+}
 
 /* Responsive*/
 
@@ -507,5 +527,12 @@ body {
   .main.active {
     width: 100%;
     left: 0;
+  }
+  .list_btn {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    
   }
 }

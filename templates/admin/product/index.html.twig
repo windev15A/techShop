@@ -101,7 +101,7 @@
 								</div>
 							</td>
 							<td>
-								<h4>{{product.libelle}}</h4>
+								<a href="{{path('app_update_product', {'id': product.id})}}" style="text-decoration:none; color:black;"><h4>{{product.libelle}}</h4></a>
 							</td>
 						</tr>
 					{% endfor %}
