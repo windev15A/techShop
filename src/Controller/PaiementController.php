@@ -59,7 +59,7 @@ class PaiementController extends AbstractController
     {
         try {
             $total = $calculer->totalAPayer($panier);
-            Stripe::setApiKey('sk_test_E8BbOkpkiejWMiPjLXenAz5J00buAeYztX');
+            Stripe::setApiKey($this->getParameter('key_strap'));
 
             $intent = PaymentIntent::create([
                 'amount' => round($total * 100),
